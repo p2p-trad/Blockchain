@@ -137,6 +137,15 @@
   .pm-verified { color: var(--green); font-size: 12px; font-weight: 700; margin: 5px 0 8px; }
   .pm-email { color: var(--muted); font-size: 12px; word-break: break-all; }
 
+  /* Pasos e instrucciones */
+  .step { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--border); }
+  .step:last-child { border-bottom: none; }
+  .step .num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step .txt b { display: block; font-size: 14px; margin-bottom: 3px; }
+  .step .txt p { color: var(--muted); font-size: 12px; line-height: 1.55; }
+  .notes-area { width: 100%; min-height: 120px; background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-size: 13px; padding: 14px; resize: vertical; outline: none; font-family: inherit; line-height: 1.5; transition: border-color .2s; }
+  .notes-area:focus { border-color: var(--accent); }
+
   /* ===== ESCRITORIO ===== */
   @media (min-width: 900px) {
     .frame { max-width: 960px; padding: 0; overflow: hidden; }
@@ -239,6 +248,7 @@
       <button onclick="goPage('market', this)"><span class="ico">⇄</span><span data-i18n="nav_market">Mercado</span></button>
       <button onclick="goPage('withdraw', this)"><span class="ico">⇪</span><span data-i18n="nav_withdraw">Retiro</span></button>
       <button onclick="goPage('pay', this)"><span class="ico">◈</span><span data-i18n="nav_pay">Pago</span></button>
+      <button onclick="goPage('wallet', this)"><span class="ico">👛</span><span data-i18n="nav_wallet">Billetera</span></button>
     </nav>
 
     <main class="main">
@@ -373,6 +383,16 @@
 
         </div>
       </section>
+      <!-- ===== BILLETERA ===== -->
+      <section class="page" id="page-wallet">
+        <div class="section-title" data-i18n="wallet_title">Conectar tu billetera digital</div>
+        <div class="form-card">
+          <div id="wallet-steps"></div>
+          <label style="margin-top:22px;" data-i18n="wallet_notes_lbl">Instrucciones adicionales (puedes editar y seguir escribiendo)</label>
+          <textarea id="wallet-notes" class="notes-area" data-i18n-ph="wallet_notes_ph" placeholder="Escribe aquí instrucciones adicionales..." oninput="saveWalletNotes()"></textarea>
+          <p class="hint" style="margin-top:18px; font-size:12px;" data-i18n="wallet_support">ℹ️ Si tienes problemas para conectar tu billetera, contacta con el soporte o con el agente encargado de tu proceso.</p>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -473,6 +493,12 @@
       save: 'Guardar',
       bank_label: 'Nombre del banco',
       saved_ok: '✅ Configuración guardada (demo).',
+      nav_wallet: 'Billetera',
+      wallet_title: 'Conectar tu billetera digital',
+      wallet_notes_lbl: 'Instrucciones adicionales (puedes editar y seguir escribiendo)',
+      wallet_notes_ph: 'Escribe aquí instrucciones adicionales...',
+      wallet_support: 'ℹ️ Si tienes problemas para conectar tu billetera, contacta con el soporte o con el agente encargado de tu proceso.',
+      wallet_steps: '<div class="step"><div class="num">1</div><div class="txt"><b>Descarga Trust Wallet</b><p>Instala la aplicación desde la tienda oficial de tu móvil (App Store o Google Play) o desde el sitio oficial trustwallet.com. Verifica que el desarrollador sea "Trust Wallet".</p></div></div><div class="step"><div class="num">2</div><div class="txt"><b>Crea una billetera nueva</b><p>Abre la app y selecciona "Crear una billetera nueva". Acepta las condiciones de uso y continúa con el proceso.</p></div></div><div class="step"><div class="num">3</div><div class="txt"><b>Guarda tu frase de recuperación</b><p>Escríbela en papel y guárdala en un lugar seguro, fuera del alcance de terceros. Nunca la compartas con nadie: quien la posea controla tus fondos.</p></div></div><div class="step"><div class="num">4</div><div class="txt"><b>Añade tus criptomonedas</b><p>Toca el icono de ajustes (esquina superior derecha) y activa las monedas que utilices (BTC, ETH, USDT, etc.) para verlas en la pantalla principal.</p></div></div><div class="step"><div class="num">5</div><div class="txt"><b>Visualiza tu saldo</b><p>En la pantalla principal verás el balance total en USD y el detalle de cada moneda. También puedes usar "Recibir" para añadir fondos y ver el saldo actualizado.</p></div></div>',
     },
     en: {
       tagline: 'Your crypto CRM',
@@ -524,6 +550,12 @@
       save: 'Save',
       bank_label: 'Bank name',
       saved_ok: '✅ Settings saved (demo).',
+      nav_wallet: 'Wallet',
+      wallet_title: 'Connect your digital wallet',
+      wallet_notes_lbl: 'Additional instructions (you can edit and keep writing)',
+      wallet_notes_ph: 'Write additional instructions here...',
+      wallet_support: 'ℹ️ If you have problems connecting your wallet, contact support or the agent in charge of your process.',
+      wallet_steps: '<div class="step"><div class="num">1</div><div class="txt"><b>Download Trust Wallet</b><p>Install the app from the official store on your phone (App Store or Google Play) or from the official site trustwallet.com. Make sure the developer is "Trust Wallet".</p></div></div><div class="step"><div class="num">2</div><div class="txt"><b>Create a new wallet</b><p>Open the app and select "Create a new wallet". Accept the terms of use and continue with the process.</p></div></div><div class="step"><div class="num">3</div><div class="txt"><b>Save your recovery phrase</b><p>Write it down on paper and keep it in a safe place, away from third parties. Never share it with anyone: whoever holds it controls your funds.</p></div></div><div class="step"><div class="num">4</div><div class="txt"><b>Add your cryptocurrencies</b><p>Tap the settings icon (top right corner) and enable the coins you use (BTC, ETH, USDT, etc.) to see them on the main screen.</p></div></div><div class="step"><div class="num">5</div><div class="txt"><b>View your balance</b><p>On the main screen you will see the total balance in USD and the detail of each coin. You can also use "Receive" to add funds and see the updated balance.</p></div></div>',
     },
   };
 
@@ -547,6 +579,7 @@
     renderDashboard();
     renderWallets();
     renderMarket(document.getElementById('market-search').value);
+    renderWalletSteps();
     updateFee();
   }
 
@@ -704,8 +737,18 @@
   }
   function savePay() { alert(t('saved_ok')); }
 
+  // ==================== BILLETERA ====================
+  function renderWalletSteps() {
+    const el = document.getElementById('wallet-steps');
+    if (el) el.innerHTML = t('wallet_steps');
+  }
+  function saveWalletNotes() {
+    try { localStorage.setItem('blockchain-wallet-notes', document.getElementById('wallet-notes').value); } catch (e) {}
+  }
+
   // ==================== INICIO ====================
   try { LANG = localStorage.getItem('blockchain-lang') || 'es'; } catch (e) {}
+  try { document.getElementById('wallet-notes').value = localStorage.getItem('blockchain-wallet-notes') || ''; } catch (e) {}
   setLang(LANG);
 </script>
 </body>
