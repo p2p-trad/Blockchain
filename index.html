@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blockchain — Iniciar sesión</title>
+<title>Blockchain — Tu CRM de criptomonedas</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
   body {
@@ -12,17 +12,7 @@
     display: flex; align-items: center; justify-content: center;
     padding: 20px;
   }
-  .phone {
-    width: 375px; height: 812px;
-    background: #0a0a18;
-    border-radius: 40px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 30px 80px rgba(0,0,0,.6), inset 0 0 0 2px #1e1e3a;
-    display: flex; flex-direction: column;
-  }
-  /* Formas decorativas 3D azules */
-  .blob { position: absolute; filter: blur(2px); opacity: .9; pointer-events: none; }
+  .blob { position: absolute; pointer-events: none; }
   .blob1 { top: -40px; left: -60px; width: 220px; height: 220px;
     background: conic-gradient(from 200deg, #1e3cff, #7b2fff, #00d4ff, #1e3cff);
     border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; filter: blur(20px); opacity:.55; }
@@ -33,6 +23,16 @@
     background: conic-gradient(from 300deg, #00d4ff, #7b2fff, #1e3cff, #00d4ff);
     border-radius: 60% 40% 55% 45% / 40% 60% 40% 60%; filter: blur(24px); opacity:.35; }
 
+  /* ===== MÓVIL (base) ===== */
+  .frame {
+    position: relative;
+    width: 100%; max-width: 375px; min-height: 640px;
+    background: #0a0a18;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6), inset 0 0 0 2px #1e1e3a;
+    display: flex; flex-direction: column;
+  }
   .screen {
     position: relative; z-index: 2; flex: 1;
     display: flex; flex-direction: column; align-items: center;
@@ -46,7 +46,7 @@
     color: #fff; text-align: center; margin-bottom: 34px;
   }
   h1 { color: #fff; font-size: 22px; font-weight: 800; text-align: center; letter-spacing: 1px; margin-bottom: 8px; }
-  .subtitle { color: #8b8ba7; font-size: 13px; margin-bottom: 26px; }
+  .subtitle { color: #8b8ba7; font-size: 13px; margin-bottom: 26px; text-align: center; }
 
   .field {
     width: 100%; background: #12122a;
@@ -78,106 +78,218 @@
   }
   .btn-login:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(106,61,255,.5); }
 
-  .divider { width: 100%; display: flex; align-items: center; gap: 12px; margin: 24px 0; color: #6a6a8f; font-size: 12px; }
-  .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #232348; }
-
-  .socials { width: 100%; display: flex; gap: 12px; }
-  .btn-social {
-    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
-    background: #15152e; border: 1px solid #26264a; border-radius: 10px;
-    color: #d5d5ea; font-size: 13px; padding: 13px; cursor: pointer; transition: .2s;
-  }
-  .btn-social:hover { border-color: #3d5bff; }
-
-  .footer { margin-top: auto; color: #8b8ba7; font-size: 13px; }
+  .footer { margin-top: auto; color: #8b8ba7; font-size: 13px; text-align: center; }
   .footer a { color: #6f7bff; text-decoration: none; font-weight: 600; }
 
-  /* ---- Pantalla PIN ---- */
-  .back { position: absolute; top: 26px; left: 24px; color: #9a9ab8; font-size: 20px; cursor: pointer; z-index: 3; }
-  .pin-dots { display: flex; gap: 14px; margin: 26px 0 14px; }
-  .pin-dots span {
-    width: 44px; height: 44px; border-radius: 10px;
-    background: #14142c; border: 1px solid #26264a;
-    display: flex; align-items: center; justify-content: center;
+  /* ============ CRM DASHBOARD ============ */
+  .crm { padding: 26px 22px 20px; align-items: stretch; }
+  .crm-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;
   }
-  .pin-dots span.filled::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: #fff; }
-  .forgot-pin { color: #6f7bff; font-size: 12px; text-decoration: none; margin-bottom: 26px; }
-  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 46px; margin-top: 6px; }
-  .key {
-    width: 62px; height: 62px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: #e8e8f5; font-size: 20px; cursor: pointer; transition: .15s;
-    border: 1px solid transparent;
+  .crm-header .id { display: flex; align-items: center; gap: 10px; }
+  .crm-header .id img { width: 34px; height: 34px; }
+  .crm-header .id span { color: #fff; font-weight: 700; font-size: 16px; }
+  .btn-logout {
+    background: #15152e; border: 1px solid #26264a; color: #9a9ab8;
+    font-size: 12px; padding: 8px 14px; border-radius: 8px; cursor: pointer; transition: .2s;
   }
-  .key:hover { background: #181836; border-color: #2c2c55; }
-  .key:active { transform: scale(.92); }
-  .keypad-icons { width: 100%; display: flex; justify-content: space-between; padding: 0 8px; margin-top: 8px; color: #8b8ba7; font-size: 18px; }
+  .btn-logout:hover { border-color: #ff4d6d; color: #ff4d6d; }
+
+  .balance-card {
+    background: linear-gradient(135deg, #1a2bff, #7b2fff);
+    border-radius: 16px; padding: 20px; margin-bottom: 18px;
+    box-shadow: 0 10px 30px rgba(61,91,255,.3);
+  }
+  .balance-card .label { color: #c7ccff; font-size: 12px; margin-bottom: 6px; }
+  .balance-card .amount { color: #fff; font-size: 30px; font-weight: 800; }
+  .balance-card .change { color: #4ade80; font-size: 13px; font-weight: 600; margin-top: 4px; }
+
+  .chart-card {
+    background: #12122a; border: 1px solid #232348; border-radius: 16px;
+    padding: 16px; margin-bottom: 18px;
+  }
+  .chart-card .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .chart-card .row span { color: #8b8ba7; font-size: 12px; }
+  .chart-card .row b { color: #fff; font-size: 13px; }
+
+  .section-title { color: #8b8ba7; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+
+  .assets { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .asset {
+    background: #12122a; border: 1px solid #232348; border-radius: 14px;
+    display: flex; align-items: center; gap: 12px; padding: 13px 14px;
+  }
+  .coin-icon {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px; color: #fff; flex-shrink: 0;
+  }
+  .asset .info { flex: 1; }
+  .asset .info b { color: #fff; font-size: 14px; display: block; }
+  .asset .info small { color: #8b8ba7; font-size: 11px; }
+  .asset .values { text-align: right; }
+  .asset .values b { color: #fff; font-size: 14px; display: block; }
+  .asset .values small { font-size: 11px; font-weight: 600; }
+  .up { color: #4ade80; } .down { color: #ff4d6d; }
+
+  .btn-trade {
+    width: 100%; padding: 15px; margin-top: 14px; border: none; border-radius: 12px;
+    background: linear-gradient(90deg, #2b4bff, #6a3dff);
+    color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 2px;
+    cursor: pointer; transition: .25s;
+    box-shadow: 0 8px 24px rgba(61,91,255,.35);
+  }
+  .btn-trade:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(106,61,255,.5); }
+
+  /* ===== ESCRITORIO ===== */
+  @media (min-width: 900px) {
+    .frame { max-width: 1024px; min-height: 640px; border-radius: 28px; }
+    .screen { padding: 60px 70px; }
+
+    /* Login: dos columnas */
+    #screen-login {
+      flex-direction: row; align-items: center; gap: 70px;
+    }
+    .login-left {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border-right: 1px solid #1c1c38; padding-right: 70px;
+    }
+    .login-right { flex: 1; max-width: 400px; }
+    .login-right h1 { text-align: left; font-size: 26px; }
+    .login-right .subtitle { text-align: left; }
+    .footer { text-align: left; }
+    .brand-logo img { width: 110px; height: 110px; margin-bottom: 20px; }
+    .brand-name { font-size: 34px; margin-bottom: 0; }
+    .tagline { color: #8b8ba7; font-size: 14px; margin-top: 12px; text-align: center; }
+
+    /* Dashboard: distribución horizontal */
+    .crm { padding: 40px 50px; }
+    .top-row { display: flex; gap: 20px; margin-bottom: 22px; }
+    .top-row .balance-card { flex: 1; margin-bottom: 0; }
+    .top-row .chart-card { flex: 1.4; margin-bottom: 0; }
+    .assets { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .balance-card .amount { font-size: 36px; }
+  }
 </style>
 <base target="_blank">
 </head>
 <body>
 
   <!-- ===== PANTALLA 1: LOGIN ===== -->
-  <div class="phone">
+  <div class="frame">
     <div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div>
 
     <div class="screen" id="screen-login">
-      <div class="brand-logo"><img src="data:image/png;base64,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" alt="Logo Blockchain"></div>
-      <div class="brand-name">Blockchain</div>
-      <h1>INICIA SESIÓN EN<br>TU CUENTA</h1>
-      <p class="subtitle">Ingresa tu información de acceso</p>
-
-      <div class="field">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a7aa0" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-        <input type="email" placeholder="Correo electrónico">
-      </div>
-      <div class="field">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a7aa0" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-        <input type="password" placeholder="Contraseña">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a7aa0" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+      <div class="login-left">
+        <div class="brand-logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAOa0lEQVR4AezcS3Ibxx0G8H+DklcxA0tZZEkuopQrcoo5QCwwshcum7Z8ApMnsHQC0SeQcgLSJzBlSZVFooDyBcSKtbFcKfIAkQVT3kQkp90fiAYHIADOE9OPb4rtGQzm0f31j83BYKyWcKotgW771pIpK6Z0BgXLbeFUWwIEXWG0fbSLn979928/6z5Z/PRVkiT7pjwzpTsoWH6F9063Wbtt9lmpsArRH4qgSxIwINtPFtduA2gfrcim1rpjDjtrJG6fbqPumX2eGeD7T95eWzf78KdkAgRdMEBA7prR2IDcF1H3ToFK0WlJlNrqwza/HEUPwv1ECLqAAoO5k+jkWSKyKSKzRmLJOS2J+eUA7H+2b3WEU+4ECDpnZN3FT3GZ0BUtBp/UNS21kqRrznW3uhPEcSSCztjPZlRudxc/2zKj8u2Mu5TezJxr84k5Z+kDRXQAgs7Q2cB8opNuIrqBD256nagzdNJgE4IeBDFtZjErLSvS2ETUWaMn6BlJuYHZVpCobRKz5gQ9JR23MNtKErVNYtqcoEVkPBw3MdtaErVNYtKcoMdScRuzrSxR2yTG5wSdSsQPzLbCRG2TSM8JepCGX5gHlTa3EXlLz2ZxOidok4OfmE3F+z8cqfsxDP4TPWi/MQ96kSO1DeKih5OG2wW5EAZm2zUcqZFEtCN0WJjRlShEHSXoMDEDNErcqKMDHTZmgEaJF3VUoOPADNAocaKOBnRcmAEaJQdqbB5AiQJ0nJitzrhQBw86bszxoQ4aNDFb0JjHMVIHC5qYgXi8hI86SNDEPA45/Tps1MGBrgFzWkMgy+GiDgo0Mef5fQsTdTCgiTkPZrtteKiDAE3MFmiReViovQdNzEUQj+8TDmqvQRPzOMwyr8NAXQ50mfxK7kvMJQOcuLv/qL0ETcwTNVa00m/U3oEm5orczjyMv6i9Ak3MMxVW/KafqL0BTcwVe810OP9QewGamDPpq2mjU9Q1HbzywzoPmpgr7/MCB/QHtdOgibmAvdp28QO1s6CJuTaZJQ7sPmonQRNzCXO17+o2audAE3PtIis4gbuonQLtJ+YKfHh5CDdROwOamH1U7R5qJ0ATs4+YbZ3dQt04aGK2MHyeu4O6UdDE7DPi8bq7gbox0MQ8DiKE182jrhX0tC4i5mnJhLC+WdSNgE4SWVdaVoRToAno9X+1b91qonGNgL55uHO/1Wota5Gvm2g0z1lnAmobfftBb2dHGpgaAY12rvZ2Dj44/HYdjSdsJOJ7UX3INw8fbKBvpaGpMdC2vWg8Yds0fJurXiLylRmU3mkask2ucdC2IoRtk/BhbiGr5Q8Pv91c7e30XKm1M6BtIIRtk3Bx7i5km5ZzoG3FCNsm4cLcfcg2JWdB2woStk2iibk/kG06zoO2FU3DxgcRUerAvsd51Qn4B9km4A1oW2HAxgeRllKrhG1TqWruL2SbgHegbcW9gW0r7PTcf8g2Xm9B2wYQtk2iyDwcyLb13oO2DSFsm0SWeXiQbatLgd5f6rR/uHrjmx9/1+nYAzY9t7Bv/vxgWVqtDX54TPeIu5Aftq93Hi9ev5uubZHlwqCB+ehQd5XWt3SSdF9cufHsxdW/rhepRF373OztbBM20nUb8qO3r3fViXS1ls3Hb7+3hRoXLYVAW8wiOvUIqFnWauvFlff3Cbtod1S9nx+QTauHf+G16PUyqHOD3jeXGRiZRzGbKp39LEk22Gd7zGkpnhHbXcgG6/qjxff2MSKbbh9CNsvDnzKoc4HOgHlYKbNA2CaE+f64Cfmb9kr70eKfbwOywbolWi9dlIvZrtBInRn0/sUj87Q6Eva0ZCpbb7411a2Nm4cP3sGXTuaDsRNPvwHyY/NB7/LJyb7o5J5kgJyOpAjqTKBLYE7X7wz2lfe/3P9958Lf0vTOdS77eykyhLx88/XOdp0Z5Tl2GjI+6JnL03ae/dPb5kV9IeiKMKfrCMj3j94k3R+vvH+XsNPRZF0OH3I6iTyoZ4KuAXO6nktaZPP4TWJu993YIux0NNOWfYU8rT3Z12dFPRP08Wtt7gnq1K257BXIuqUWaZtrq3UzYpvbfYQtE6d4IafjyIJ6KmhzOXBPmy9N0gesfVlrwk6FrJTaTVqtVfNhz6lr5H+0V5bM7betyyfHr7T5MqTMNbLknIDa3C25N223iaD/az60mZHz9rSdal8fOWwL+W8/P1j9sLezW3veGU/wEF9Pm2/yTk6O9wEr427Vb6a1uQX4p4k+z4HGtWxirm2rr0WBI0YG22XIw6+nzTd5BXqy+l20uou/FOMHPgf6+P/6nhmdC99mGT9BJa8HsF17EKqq230+QDb92DHFpZ+2+UthPuONVmkE9IurnXWt9K3RTdx5NXwQ6uqNrktP+BWFDci4Rnbx0sKOyKb3XYNsqjT86Tz8zfWR+o2ANncb7g43dXlB646LT/hZ2EAKrNMixHvYhpCnJZR9vVIyYnYIGqOziMaXHtmP1viWekUcfBAKH+SAFWiVuVNhY8Iy1uE9bGPXNz1/aD7seTIiT4pqZJQegjaYv5i0tSfrllyH7SJkc+vtwifffOh/lRql+6BxZ8Ncboxci/jQkAl1dBa2KyMynrN4lPPJtwk5u7aqg3ahUn3QR0cSAmZJTU7CTtVv7ovo8Mclnnybe4VznvByctT/v6X6oJXoz3LuP4fNKznFGWzzZVH/L1Elh/XnIGnIes7f6s01JS39QbkPOpDLDZkx4cOuk0/4zahzqbeigTxMSd3AYmu/3WlrPCCEV+EXZ5/wqyr6+CAPk2uj7S25LBi9JKap/ws8+PbxxVW3nvAr2g/oTHuNHPSlxYyA3pI3S61jLW59zS1znjyHjecZzO23Rp58m3NPXXi65LjVPr2GvnDTCDbwDDa+DAHkk6affKuCRoXHaF1S0hNOZwk4DhuQ7bd62pUn387Sa3SpdSnpteRIDoTT+QQGsF15wi8N2VS2f4vKzPmTSuCNvHXQWu7t9pQIR2mZPDX9hB8hT+6XCWt7n/f2eqfX0KkHaCZsyFVIYM5P+BEyQs9V9rD1KWidPMULliwJ6JU6H4Qi5Cx9MGEbpR9gbR/0cbKwgxcsuRIYfq3+w9VO6f8pwtyxmPTkW64KxbzxQuty33Af9Lu93QPhZUdRD0tK9JdFd7b7adFfSM5/KsvuG/1cyd5Hvb0D5NAHjQWlk/6QjWUWJuBTAkqrv9v6DkFfSha2ebfDxsK5Pwmog49ffz/8d/2GoHH7LhEZSvenQaxpzAlorb9Ot38IGivfSlr3OUojCRY/ElAHa78830zXtZV+gVFaq9ad9Dpnl1mx6BMwg+9X4yGMgMab117ubgvveCAKFrcT2E1fO9uqngONN05O1IbRz6/DEQaLgwmo3sLCpQ2ZME0EjfvSvPSYkBZXOZGAGWzv2PvO4xWaCBob4dJDi5y7RsF7LEygqQS0lq8mXWrY+kwFjQ3++NN3m0SNJFiaTMCeG5jH72rY9+x8JmhsRNRIgaXpBLJgRh0vBI2NiBopsDSVQFbMqF8m0NiQqJECy7wTyIMZdcsMGhsTNVJgmVcCeTGjXrlAYweiRgosdSdQBDPqlBs0diJqpOBCCbMORTEjjUKgsSNRIwWWqhMogxl1KQwaOxM1UmCpKoGymFGPUqBxAKJGCixlE6gCM+pQGjQOQtRIgaVoAlVhxvkrAY0DETVSYMmbQJWYce7KQONgLqFGfVjcTqBqzGhtpaBxQKJGCiwXJVAHZpyzctA4KFEjBZZpCdSFGeerBTQOTNRIgWU8gTox41y1gcbBiRopsNgE6saM89QKGicgaqTAUiPmkXBrB42zETVSiLfMCzMSngtonIiokUJ8ZZ6Yke7cQONkRI0U4inzxoxk5woaJyRqpBB+aQIzUp07aJyUqJFCuKUpzEi0EdA4MVEjhZpLA4dvEjOa2xhonJyokUI4pWnMSLJR0KgAUSMF/4sLmJFi46BRCaJGCv4WVzAjQSdAoyJEjRT8Ky5hRnrOgEZliBop+FNcw4zknAKNCs0JNU7FUiIBFzGjOc6BRqWIGim4W1zFjMScBI2KETVScK+4jBlpOQsalSNqpOBOcR0zknIaNCpI1Eih+eIDZqTkPGhUkqiRQnPFF8xI6DxorHWwEHUzneITZiTkDWhUlqiRwvyKb5iRjFegUWGiRgr1Fx8xIxXvQKPSRI0U6iu+YkYiXoJGxYkaKVRffMaMNLwFjcoTNVIoXsb39B0z2uM1aDSAqJFC+RICZqTgPWg0gqiRQvESCmYkEARoNISokUL+EhJmtD4Y0GgMUSOF7CU0zGh5UKDRIKJGCheXEDGj1cGBRqPKo8ZRwi2hYkaPBQkaDSNqpHC+hIwZrQ0WNBpH1EjhrISOGS0NGjQaSNRIQSQGzGhp8KDRyNhRx4IZfR0FaDQ0VtQxYUY/5waNnXwtsaGODTNcRgUaDY4FdYyY0b/RgUajQ0cdK2b0bZSg0fBQUceMGf0aLWg0PjTUsWNGn0YNGgGEgroGzIjHuxI9aPSY76iJGb14Wgj6NAfxFTUxDzpwMCPoQRCY+YaamNFro4WgR/PwZqQm5rGOG7wk6EEQ6ZnrIzUxp3trdJmgR/MYvpqJerjV/BeIeXbmBD0jH9dQE/OMzhq8RdCDIKbNXEFNzNN6aHQ9QY/mMfFV06iJeWK3TFxJ0BNjOb8SqEW1NkTUgcxtUj0t6vO1X55vzu2Unp+IoHN04LWXu9sniVoVpXZz7FZ0092FhYW/rL3+fqfoAWLcr2rQwWf4bm/34NrLpwZ1XaO16ilRG5+8fr76UW9vjn8Nwug6gi7Yj9fMaH3tp6fLYi5DlNJ7BQ8z3E0reWqOdedoYWH549ffbw/f4EKuBAg6V1znNwbsP/zvuzvn38m3Zu3w+eYnh/+5/3lvr5dvT26dToCg02lw2fsEfgUAAP//hoDQWQAAAAZJREFUAwATtxXwvtdvggAAAABJRU5ErkJggg==" alt="Logo Blockchain"></div>
+        <div class="brand-name">Blockchain</div>
+        <p class="tagline">Tu CRM de criptomonedas</p>
       </div>
 
-      <div class="options">
-        <label class="remember"><input type="checkbox"> Recuérdame</label>
-        <a href="#">¿Olvidaste tu contraseña?</a>
+      <div class="login-right">
+        <h1>INICIA SESIÓN EN<br>TU CUENTA</h1>
+        <p class="subtitle">Ingresa tu información de acceso</p>
+
+        <div class="field">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a7aa0" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+          <input type="email" placeholder="Correo electrónico">
+        </div>
+        <div class="field">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a7aa0" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <input type="password" placeholder="Contraseña">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a7aa0" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </div>
+
+        <div class="options">
+          <label class="remember"><input type="checkbox"> Recuérdame</label>
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button class="btn-login" onclick="showDashboard()">ENTRAR</button>
+
+        <p class="footer">¿No tienes cuenta? <a href="#">Regístrate</a></p>
       </div>
-
-      <button class="btn-login" onclick="showPin()">ENTRAR</button>
-
-      <p class="footer">¿No tienes cuenta? <a href="#">Regístrate</a></p>
     </div>
 
-    <!-- ===== PANTALLA 2: VERIFICACIÓN PIN ===== -->
-    <div class="screen hidden" id="screen-pin">
-      <span class="back" onclick="showLogin()">&#8592;</span>
-      <div class="brand-logo"><img src="data:image/png;base64,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" alt="Logo Blockchain"></div>
-      <div class="brand-name">Blockchain</div>
-      <h1>VERIFICACIÓN<br>PIN</h1>
-      <p class="subtitle">Ingresa tu PIN</p>
+    <!-- ===== PANTALLA 2: CRM CRIPTOMONEDAS ===== -->
+    <div class="screen crm hidden" id="screen-dashboard">
+      <div class="crm-header">
+        <div class="id">
+          <img src="data:image/png;base64,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" alt="Logo Blockchain">
+          <span>Blockchain</span>
+        </div>
+        <button class="btn-logout" onclick="showLogin()">Cerrar sesión</button>
+      </div>
 
-      <div class="pin-dots">
-        <span class="filled"></span><span></span><span></span><span></span><span></span>
-      </div>
-      <a href="#" class="forgot-pin">¿Olvidaste tu PIN?</a>
+      <div class="top-row">
+        <div class="balance-card">
+          <div class="label">Balance total</div>
+          <div class="amount">$128,430.50</div>
+          <div class="change">▲ +5.27% ($6,431.12) hoy</div>
+        </div>
 
-      <div class="keypad">
-        <div class="key">1</div><div class="key">2</div><div class="key">3</div>
-        <div class="key">4</div><div class="key">5</div><div class="key">6</div>
-        <div class="key">7</div><div class="key">8</div><div class="key">9</div>
+        <div class="chart-card">
+          <div class="row"><span>Rendimiento 7 días</span><b class="up">+12.4%</b></div>
+          <svg width="100%" height="70" viewBox="0 0 300 70" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3d5bff" stop-opacity=".4"/>
+                <stop offset="100%" stop-color="#3d5bff" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0,55 L30,48 L60,52 L90,38 L120,42 L150,28 L180,33 L210,20 L240,25 L270,12 L300,8 L300,70 L0,70 Z" fill="url(#fill)"/>
+            <path d="M0,55 L30,48 L60,52 L90,38 L120,42 L150,28 L180,33 L210,20 L240,25 L270,12 L300,8" fill="none" stroke="#5a7bff" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="300" cy="8" r="4" fill="#5a7bff"/>
+          </svg>
+        </div>
       </div>
-      <div class="keypad-icons">
-        <span>&#128247;</span><span>0</span><span>&#9003;</span>
+
+      <div class="section-title">Mis criptomonedas</div>
+
+      <div class="assets">
+        <div class="asset">
+          <div class="coin-icon" style="background:#f7931a;">₿</div>
+          <div class="info"><b>Bitcoin</b><small>BTC · 1.2450 BTC</small></div>
+          <div class="values"><b>$95,214.00</b><small class="up">+4.8%</small></div>
+        </div>
+        <div class="asset">
+          <div class="coin-icon" style="background:#627eea;">Ξ</div>
+          <div class="info"><b>Ethereum</b><small>ETH · 8.4200 ETH</small></div>
+          <div class="values"><b>$3,842.10</b><small class="up">+2.1%</small></div>
+        </div>
+        <div class="asset">
+          <div class="coin-icon" style="background:#26a17b;">₮</div>
+          <div class="info"><b>Tether</b><small>USDT · 12,500 USDT</small></div>
+          <div class="values"><b>$1.00</b><small class="up">+0.0%</small></div>
+        </div>
+        <div class="asset">
+          <div class="coin-icon" style="background:#f0b90b;">B</div>
+          <div class="info"><b>BNB</b><small>BNB · 15.3000 BNB</small></div>
+          <div class="values"><b>$672.40</b><small class="down">-1.3%</small></div>
+        </div>
+        <div class="asset">
+          <div class="coin-icon" style="background:#23292f;color:#e8e8f5;">◎</div>
+          <div class="info"><b>Solana</b><small>SOL · 45.8000 SOL</small></div>
+          <div class="values"><b>$212.75</b><small class="up">+6.9%</small></div>
+        </div>
+        <div class="asset">
+          <div class="coin-icon" style="background:#8b8ba7;">+</div>
+          <div class="info"><b>Agregar activo</b><small>Compra o recibe cripto</small></div>
+          <div class="values"><b></b><small class="up">→</small></div>
+        </div>
       </div>
+
+      <button class="btn-trade">COMPRAR / VENDER</button>
     </div>
   </div>
 
 <script>
-  function showPin() {
+  function showDashboard() {
     document.getElementById('screen-login').classList.add('hidden');
-    document.getElementById('screen-pin').classList.remove('hidden');
+    document.getElementById('screen-dashboard').classList.remove('hidden');
   }
   function showLogin() {
-    document.getElementById('screen-pin').classList.add('hidden');
+    document.getElementById('screen-dashboard').classList.add('hidden');
     document.getElementById('screen-login').classList.remove('hidden');
   }
 </script>
