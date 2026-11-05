@@ -290,6 +290,7 @@
             <label class="remember"><input type="checkbox"> <span data-i18n="remember">Recuérdame</span></label>
             <a href="#" data-i18n="forgot">¿Olvidaste tu contraseña?</a>
           </div>
+          <div class="msg" id="login-msg"></div>
           <button class="btn-login" onclick="doLogin()" data-i18n="enter">Entrar</button>
           <p class="footer"><span data-i18n="no_account">¿No tienes cuenta?</span> <a href="#" data-i18n="signup">Regístrate</a></p>
         </div>
@@ -331,8 +332,8 @@
         <div class="top-row">
           <div class="balance-card">
             <div class="label" data-i18n="total_balance">Balance total</div>
-            <div class="amount">$128,430.50</div>
-            <div class="change">▲ +5.27% ($6,431.12) <span data-i18n="today">hoy</span></div>
+            <div class="amount" id="dash-balance">$128,430.50</div>
+            <div class="change" id="dash-change">▲ +5.27% ($6,431.12) <span data-i18n="today">hoy</span></div>
           </div>
           <div class="chart-card">
             <div class="row"><span data-i18n="performance">Rendimiento 7 días</span><b class="up">+12.4%</b></div>
@@ -351,13 +352,7 @@
         </div>
 
         <div class="section-title" data-i18n="my_cryptos">Mis criptomonedas</div>
-        <div class="assets">
-          <div class="asset"><div class="coin-icon" style="background:#f7931a;">₿</div><div class="info"><b>Bitcoin</b><small>BTC · 1.2450 BTC</small></div><div class="values"><b>$95,214.00</b><small class="up">+4.8%</small></div></div>
-          <div class="asset"><div class="coin-icon" style="background:#627eea;">Ξ</div><div class="info"><b>Ethereum</b><small>ETH · 8.4200 ETH</small></div><div class="values"><b>$3,842.10</b><small class="up">+2.1%</small></div></div>
-          <div class="asset"><div class="coin-icon" style="background:#26a17b;">₮</div><div class="info"><b>Tether</b><small>USDT · 12,500 USDT</small></div><div class="values"><b>$1.00</b><small class="up">+0.0%</small></div></div>
-          <div class="asset"><div class="coin-icon" style="background:#f0b90b;">B</div><div class="info"><b>BNB</b><small>BNB · 15.3000 BNB</small></div><div class="values"><b>$672.40</b><small class="down">-1.3%</small></div></div>
-          <div class="asset"><div class="coin-icon" style="background:#23292f;color:#e8e8f5;">◎</div><div class="info"><b>Solana</b><small>SOL · 45.8000 SOL</small></div><div class="values"><b>$212.75</b><small class="up">+6.9%</small></div></div>
-        </div>
+        <div class="assets" id="dash-assets"></div>
         <button class="btn-main" onclick="goPage('market', document.querySelectorAll('.nav button')[1])" style="margin-top:22px;" data-i18n="go_market">Ir al mercado</button>
       </section>
 
@@ -588,6 +583,7 @@
       el.placeholder = t(el.dataset.i18nPh);
     });
 
+    renderDashboard();
     renderWallets();
     renderMarket(document.getElementById('market-search').value);
     updateFee();
@@ -595,11 +591,12 @@
 
   function renderWallets() {
     const sel = document.getElementById('wd-wallet');
+    if (!currentUser) return;
     const current = sel.value;
-    sel.innerHTML = I18N[LANG].wallets
+    sel.innerHTML = currentUser.wallets
       .map(w => `<option value="${w.v}" data-bal="${w.bal.replace(',','')}">${w.v} — ${w.n} · ${t('available')}: ${w.bal}</option>`)
       .join('');
-    if (current) sel.value = current;
+    if (current && [...sel.options].some(o => o.value === current)) sel.value = current;
   }
 
   // ---------- Datos del mercado ----------
@@ -642,15 +639,82 @@
     btn.classList.add('active');
   }
 
+  // ==================== USUARIOS ====================
+  // NOTA DEMO: estas credenciales son visibles en el codigo fuente.
+  // Para produccion real se recomienda Firebase Authentication.
+  const USERS = [
+    {
+      user: 'admin', pass: 'admin2026', name: 'Administrador',
+      balance: '$128,430.50', change: '▲ +5.27% ($6,431.12)',
+      wallets: [
+        { v:'BTC',  n:'Bitcoin',  bal:'1.2450'  },
+        { v:'ETH',  n:'Ethereum', bal:'8.4200'  },
+        { v:'USDT', n:'Tether',   bal:'12,500'  },
+        { v:'BNB',  n:'BNB',      bal:'15.3000' },
+        { v:'SOL',  n:'Solana',   bal:'45.8000' },
+      ],
+    },
+    {
+      user: 'carlos', pass: 'carlos2026', name: 'Carlos Mendoza',
+      balance: '$24,850.00', change: '▲ +3.10% ($748.10)',
+      wallets: [
+        { v:'BTC',  n:'Bitcoin',  bal:'0.3200' },
+        { v:'ETH',  n:'Ethereum', bal:'2.1000' },
+        { v:'USDT', n:'Tether',   bal:'5,000'  },
+      ],
+    },
+    {
+      user: 'maria', pass: 'maria2026', name: 'María González',
+      balance: '$67,120.75', change: '▼ -1.40% ($952.30)',
+      wallets: [
+        { v:'BTC', n:'Bitcoin', bal:'0.6100' },
+        { v:'SOL', n:'Solana', bal:'120.0000' },
+      ],
+    },
+  ];
+  let currentUser = null;
+
+  // ---------- Dashboard personalizado ----------
+  function renderDashboard() {
+    if (!currentUser) return;
+    document.getElementById('dash-balance').textContent = currentUser.balance;
+    document.getElementById('dash-change').innerHTML = currentUser.change + ' <span>' + t('today') + '</span>';
+    document.getElementById('dash-assets').innerHTML = currentUser.wallets.map(w => {
+      const m = marketData.find(c => c.sym === w.v);
+      const price = m ? m.price : 0;
+      const qty = parseFloat(w.bal.replace(',', ''));
+      const val = price * qty;
+      return `<div class="asset">
+        <div class="coin-icon" style="background:${m ? m.bg : '#555'};${m && m.bg === '#23292f' ? 'color:#e8e8f5;' : ''}">${m ? m.icon : w.v[0]}</div>
+        <div class="info"><b>${w.n}</b><small>${w.v} · ${w.bal} ${w.v}</small></div>
+        <div class="values"><b>$${val.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b>
+        <small class="${m && m.change >= 0 ? 'up' : 'down'}">${m ? (m.change >= 0 ? '+' : '') + m.change + '%' : '—'}</small></div>
+      </div>`;
+    }).join('');
+  }
+
   // ---------- Login / Logout ----------
   function doLogin() {
-    const email = document.getElementById('login-email').value.trim();
-    if (!email) { alert(t('need_email')); return; }
-    document.getElementById('user-name').textContent = email.split('@')[0];
+    const user = document.getElementById('login-email').value.trim().toLowerCase();
+    const pass = document.getElementById('login-pass').value;
+    const msg = document.getElementById('login-msg');
+    const found = USERS.find(u => u.user === user && u.pass === pass);
+    if (!found) {
+      msg.textContent = LANG === 'es' ? '⚠️ Usuario o contraseña incorrectos.' : '⚠️ Incorrect username or password.';
+      msg.className = 'msg err';
+      return;
+    }
+    msg.className = 'msg';
+    currentUser = found;
+    document.getElementById('login-email').value = '';
+    document.getElementById('login-pass').value = '';
+    document.getElementById('user-name').textContent = found.name;
+    renderDashboard(); renderWallets(); updateFee();
     document.getElementById('login-view').style.display = 'none';
     document.getElementById('app-view').classList.add('active');
   }
   function doLogout() {
+    currentUser = null;
     document.getElementById('app-view').classList.remove('active');
     document.getElementById('login-view').style.display = 'flex';
   }
