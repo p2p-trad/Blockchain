@@ -23,149 +23,70 @@
   body { background: var(--bg); color: var(--text); min-height: 100vh; }
 
   /* Selector de idioma */
-  .lang-switch {
-    display: flex; gap: 4px; background: var(--card-2);
-    border: 1px solid var(--border); border-radius: 10px; padding: 3px;
-  }
-  .lang-switch button {
-    background: none; border: none; cursor: pointer;
-    color: var(--muted); font-size: 11px; font-weight: 700;
-    padding: 5px 10px; border-radius: 7px; transition: .2s;
-  }
+  .lang-switch { display: flex; gap: 4px; background: var(--card-2); border: 1px solid var(--border); border-radius: 10px; padding: 3px; }
+  .lang-switch button { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 7px; transition: .2s; }
   .lang-switch button.active { background: var(--accent); color: #fff; }
 
   /* ============ LOGIN ============ */
-  .login-wrap {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    padding: 24px; position: relative; z-index: 1;
-  }
-  .frame {
-    width: 100%; max-width: 400px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 32px 36px 40px;
-    box-shadow: 0 24px 60px rgba(0,0,0,.45);
-  }
-  .login-top { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+  .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; position: relative; z-index: 1; }
+  .frame { width: 100%; max-width: 400px; background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 28px 36px 40px; box-shadow: 0 24px 60px rgba(0,0,0,.45); }
+  .login-top { display: flex; justify-content: flex-end; margin-bottom: 8px; }
   .brand-logo img { width: 56px; height: 56px; display: block; margin: 0 auto 16px; }
   .brand-name { font-size: 24px; font-weight: 800; letter-spacing: .5px; text-align: center; }
   .tagline { color: var(--muted); font-size: 13px; text-align: center; margin: 6px 0 36px; }
-
   h1 { font-size: 20px; font-weight: 800; letter-spacing: -.3px; margin-bottom: 6px; }
   .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
-
-  .field {
-    width: 100%; background: var(--card-2);
-    border: 1px solid var(--border); border-radius: 12px;
-    display: flex; align-items: center; gap: 10px;
-    padding: 14px; margin-bottom: 12px; transition: border-color .2s;
-  }
+  .field { width: 100%; background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; gap: 10px; padding: 14px; margin-bottom: 12px; transition: border-color .2s; }
   .field:focus-within { border-color: var(--accent); }
-  .field input, .field select {
-    flex: 1; background: none; border: none; outline: none;
-    color: var(--text); font-size: 14px; width: 100%;
-  }
+  .field input, .field select { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 14px; width: 100%; }
   .field select option { background: var(--card-2); }
   .field input::placeholder { color: var(--faint); }
-
-  .options {
-    display: flex; justify-content: space-between; align-items: center;
-    margin: 4px 0 24px; font-size: 12px;
-  }
+  .options { display: flex; justify-content: space-between; align-items: center; margin: 4px 0 20px; font-size: 12px; }
   .remember { display: flex; align-items: center; gap: 7px; color: var(--muted); cursor: pointer; }
   .remember input { accent-color: var(--accent); width: 14px; height: 14px; }
   .options a { color: var(--muted); text-decoration: none; }
   .options a:hover { color: var(--accent); }
-
-  .btn-login, .btn-main {
-    width: 100%; padding: 15px; border: none; border-radius: 12px;
-    background: var(--accent); color: #fff;
-    font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
-    cursor: pointer; transition: filter .2s, transform .15s;
-  }
+  .btn-login, .btn-main { width: 100%; padding: 15px; border: none; border-radius: 12px; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 1.5px; cursor: pointer; transition: filter .2s, transform .15s; }
   .btn-login:hover, .btn-main:hover { filter: brightness(1.1); }
   .btn-login:active, .btn-main:active { transform: scale(.98); }
-
   .footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: center; }
   .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
 
   /* ============ APP ============ */
   .app { display: none; min-height: 100vh; position: relative; z-index: 1; }
   .app.active { display: flex; }
-
-  .nav {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
-    background: rgba(10,10,16,.92); backdrop-filter: blur(12px);
-    border-top: 1px solid var(--border);
-    display: flex; justify-content: space-around; padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
-  }
-  .nav button {
-    background: none; border: none; cursor: pointer;
-    color: var(--faint); font-size: 10px; font-weight: 600;
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    padding: 4px 12px; border-radius: 10px; transition: color .2s;
-  }
+  .nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; background: rgba(10,10,16,.92); backdrop-filter: blur(12px); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 10px 0 calc(10px + env(safe-area-inset-bottom)); }
+  .nav button { background: none; border: none; cursor: pointer; color: var(--faint); font-size: 10px; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 10px; transition: color .2s; }
   .nav button .ico { font-size: 19px; }
   .nav button.active { color: var(--accent); }
   .nav-logo { display: none; }
+  .main { flex: 1; width: 100%; max-width: 1080px; margin: 0 auto; padding: 22px 20px 96px; }
 
-  .main {
-    flex: 1; width: 100%; max-width: 1080px; margin: 0 auto;
-    padding: 22px 20px 96px;
-  }
-  .crm-header {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; gap: 12px;
-  }
-  .crm-header .id { display: flex; align-items: center; gap: 10px; min-width: 0; }
-  .crm-header .id img { width: 30px; height: 30px; }
-  .crm-header .id span { font-weight: 700; font-size: 15px; }
+  .crm-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; gap: 12px; }
   .header-actions { display: flex; align-items: center; gap: 10px; }
-  .btn-logout {
-    background: none; border: 1px solid var(--border); color: var(--muted);
-    font-size: 12px; padding: 8px 14px; border-radius: 10px; cursor: pointer; transition: .2s;
-    white-space: nowrap;
-  }
+  .btn-logout { background: none; border: 1px solid var(--border); color: var(--muted); font-size: 12px; padding: 8px 14px; border-radius: 10px; cursor: pointer; transition: .2s; white-space: nowrap; }
   .btn-logout:hover { border-color: var(--red); color: var(--red); }
 
   .page { display: none; animation: fade .25s ease; }
   .page.active { display: block; }
   @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-  .section-title {
-    color: var(--faint); font-size: 11px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase; margin: 26px 0 12px;
-  }
+  .section-title { color: var(--faint); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin: 26px 0 12px; }
   .section-title:first-child { margin-top: 0; }
 
-  .balance-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 22px;
-  }
+  .balance-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
   .balance-card .label { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
   .balance-card .amount { font-size: 32px; font-weight: 800; letter-spacing: -.5px; }
   .balance-card .change { color: var(--green); font-size: 13px; font-weight: 600; margin-top: 6px; }
-
-  .chart-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 18px; margin-top: 14px;
-  }
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-top: 14px; }
   .chart-card .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
   .chart-card .row span { color: var(--muted); font-size: 12px; }
   .chart-card .row b { font-size: 13px; }
 
   .assets { display: grid; grid-template-columns: 1fr; gap: 8px; }
-  .asset {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-    display: flex; align-items: center; gap: 12px; padding: 14px;
-    transition: border-color .2s;
-  }
+  .asset { background: var(--card); border: 1px solid var(--border); border-radius: 14px; display: flex; align-items: center; gap: 12px; padding: 14px; transition: border-color .2s; }
   .asset:hover { border-color: #2a2a3d; }
-  .coin-icon {
-    width: 36px; height: 36px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 14px; color: #fff; flex-shrink: 0;
-  }
+  .coin-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: #fff; flex-shrink: 0; }
   .asset .info { flex: 1; }
   .asset .info b { font-size: 14px; display: block; font-weight: 700; }
   .asset .info small { color: var(--muted); font-size: 11px; }
@@ -174,44 +95,25 @@
   .asset .values small { font-size: 11px; font-weight: 600; }
   .up { color: var(--green) !important; } .down { color: var(--red) !important; }
 
-  .search-box {
-    width: 100%; background: var(--card-2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 13px 14px; margin-bottom: 20px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .search-box input {
-    flex: 1; background: none; border: none; outline: none;
-    color: var(--text); font-size: 14px;
-  }
+  .search-box { width: 100%; background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; padding: 13px 14px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .search-box input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 14px; }
   .search-box input::placeholder { color: var(--faint); }
 
-  .form-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 22px;
-  }
+  .form-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
   .form-card label { display: block; color: var(--muted); font-size: 12px; font-weight: 600; margin: 16px 0 7px; }
   .form-card label:first-child { margin-top: 0; }
   .form-card .field { margin-bottom: 0; }
   .hint { color: var(--faint); font-size: 11px; margin-top: 8px; line-height: 1.5; }
 
-  .msg {
-    display: none; margin-top: 18px; padding: 14px; border-radius: 12px; font-size: 13px; font-weight: 600;
-  }
+  .msg { display: none; margin-top: 16px; padding: 14px; border-radius: 12px; font-size: 13px; font-weight: 600; }
   .msg.ok { display: block; background: rgba(62,207,142,.1); color: var(--green); border: 1px solid rgba(62,207,142,.3); }
   .msg.err { display: block; background: rgba(255,92,122,.1); color: var(--red); border: 1px solid rgba(255,92,122,.3); }
 
-  .fee-box {
-    display: flex; justify-content: space-between; background: var(--card-2);
-    border: 1px dashed var(--border); border-radius: 12px;
-    padding: 13px 14px; margin-top: 18px; font-size: 12px; color: var(--muted);
-  }
+  .fee-box { display: flex; justify-content: space-between; background: var(--card-2); border: 1px dashed var(--border); border-radius: 12px; padding: 13px 14px; margin-top: 18px; font-size: 12px; color: var(--muted); }
   .fee-box b { color: var(--text); font-variant-numeric: tabular-nums; }
 
   .pay-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-  .pay-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 18px; cursor: pointer; transition: border-color .2s;
-  }
+  .pay-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; cursor: pointer; transition: border-color .2s; }
   .pay-card:hover { border-color: var(--accent); }
   .pay-card .head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
   .pay-card .head b { font-size: 15px; display: block; }
@@ -220,28 +122,45 @@
   .pay-form { display: none; margin-top: 16px; border-top: 1px solid var(--border); }
   .pay-form.open { display: block; }
 
-
   /* Menú de perfil */
   .profile-wrap { position: relative; }
+  .id { display: flex; align-items: center; gap: 10px; min-width: 0; }
   .id.clickable { cursor: pointer; padding: 7px 10px; border-radius: 10px; transition: background .2s; }
   .id.clickable:hover { background: var(--card); }
+  .crm-header .id img { width: 30px; height: 30px; }
+  .crm-header .id span { font-weight: 700; font-size: 15px; }
   .caret { color: var(--faint); font-size: 11px; }
-  .profile-menu {
-    display: none; position: absolute; top: calc(100% + 10px); left: 0; z-index: 60;
-    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-    padding: 22px; width: 250px; box-shadow: 0 20px 50px rgba(0,0,0,.5);
-  }
+  .profile-menu { display: none; position: absolute; top: calc(100% + 10px); left: 0; z-index: 60; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; width: 250px; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
   .profile-menu.open { display: block; animation: fade .2s; }
-  .pm-avatar {
-    width: 52px; height: 52px; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; font-weight: 800; margin-bottom: 12px;
-  }
+  .pm-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; margin-bottom: 12px; }
   .pm-name { font-weight: 700; font-size: 15px; }
   .pm-verified { color: var(--green); font-size: 12px; font-weight: 700; margin: 5px 0 8px; }
   .pm-email { color: var(--muted); font-size: 12px; word-break: break-all; }
 
-  /* ===== PC GRANDE: contenido más amplio y legible ===== */
+  /* ===== ESCRITORIO ===== */
+  @media (min-width: 900px) {
+    .frame { max-width: 960px; padding: 0; overflow: hidden; }
+    .screen-login { display: grid; grid-template-columns: 1fr 1fr; }
+    .login-left { background: var(--card-2); border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 40px; min-height: 560px; }
+    .login-left .brand-logo img { width: 96px; height: 96px; }
+    .login-left .brand-name { font-size: 30px; }
+    .login-right { padding: 56px; display: flex; flex-direction: column; justify-content: center; }
+    .nav { top: 0; bottom: 0; left: 0; right: auto; width: 220px; flex-direction: column; justify-content: flex-start; gap: 4px; border-top: none; border-right: 1px solid var(--border); padding: 28px 16px; }
+    .nav-logo { display: block; text-align: center; margin-bottom: 30px; }
+    .nav-logo img { width: 40px; height: 40px; }
+    .nav-logo div { font-weight: 700; font-size: 14px; margin-top: 8px; }
+    .nav button { flex-direction: row; justify-content: flex-start; gap: 12px; font-size: 14px; padding: 12px 16px; width: 100%; border-radius: 12px; }
+    .nav button.active { background: var(--accent-soft); }
+    .main { margin-left: 220px; padding: 40px 48px; }
+    .assets { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .pay-grid { grid-template-columns: 1fr 1fr; }
+    .top-row { display: flex; gap: 14px; }
+    .top-row .balance-card { flex: 1; }
+    .top-row .chart-card { flex: 1.5; margin-top: 0; }
+    .form-card { max-width: 560px; }
+  }
+
+  /* ===== PC GRANDE ===== */
   @media (min-width: 1200px) {
     .nav { width: 250px; }
     .main { margin-left: 250px; max-width: 1440px; padding: 48px 60px; }
@@ -264,42 +183,6 @@
     .field { padding: 16px; }
     .crm-header { margin-bottom: 32px; }
     .crm-header .id span { font-size: 17px; }
-  }
-
-  /* ===== ESCRITORIO ===== */
-  @media (min-width: 900px) {
-    .frame { max-width: 960px; padding: 0; overflow: hidden; }
-    .screen-login { display: grid; grid-template-columns: 1fr 1fr; }
-    .login-left {
-      background: var(--card-2); border-right: 1px solid var(--border);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 60px 40px; min-height: 560px;
-    }
-    .login-left .brand-logo img { width: 96px; height: 96px; }
-    .login-left .brand-name { font-size: 30px; }
-    .login-right { padding: 56px; display: flex; flex-direction: column; justify-content: center; }
-
-    .nav {
-      top: 0; bottom: 0; left: 0; right: auto; width: 220px;
-      flex-direction: column; justify-content: flex-start; gap: 4px;
-      border-top: none; border-right: 1px solid var(--border); padding: 28px 16px;
-    }
-    .nav-logo { display: block; text-align: center; margin-bottom: 30px; }
-    .nav-logo img { width: 40px; height: 40px; }
-    .nav-logo div { font-weight: 700; font-size: 14px; margin-top: 8px; }
-    .nav button {
-      flex-direction: row; justify-content: flex-start; gap: 12px;
-      font-size: 14px; padding: 12px 16px; width: 100%; border-radius: 12px;
-    }
-    .nav button.active { background: var(--accent-soft); }
-
-    .main { margin-left: 220px; padding: 40px 48px; }
-    .assets { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .pay-grid { grid-template-columns: 1fr 1fr; }
-    .top-row { display: flex; gap: 14px; }
-    .top-row .balance-card { flex: 1; }
-    .top-row .chart-card { flex: 1.5; margin-top: 0; }
-    .form-card { max-width: 560px; }
   }
 </style>
 <base target="_blank">
@@ -326,11 +209,11 @@
           <p class="subtitle" data-i18n="login_sub">Ingresa tu información de acceso</p>
           <div class="field">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c5c70" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-            <input type="email" id="login-email" data-i18n-ph="email_ph" placeholder="Correo electrónico">
+            <input type="text" id="login-email" data-i18n-ph="email_ph" placeholder="Usuario" autocomplete="username">
           </div>
           <div class="field">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c5c70" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-            <input type="password" id="login-pass" data-i18n-ph="pass_ph" placeholder="Contraseña">
+            <input type="password" id="login-pass" data-i18n-ph="pass_ph" placeholder="Contraseña" autocomplete="current-password">
           </div>
           <div class="options">
             <label class="remember"><input type="checkbox"> <span data-i18n="remember">Recuérdame</span></label>
@@ -360,11 +243,10 @@
 
     <main class="main">
       <div class="crm-header">
-<div class="profile-wrap">
+        <div class="profile-wrap">
           <div class="id clickable" onclick="toggleProfile()">
             <img src="data:image/png;base64,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" alt="Logo">
-          <span id="user-name">Mi cuenta</span> <span class="caret">▾</span>
-        </div>
+            <span id="user-name">Mi cuenta</span> <span class="caret">▾</span>
           </div>
           <div class="profile-menu" id="profile-menu">
             <div class="pm-avatar" id="pm-avatar">?</div>
@@ -387,8 +269,8 @@
         <div class="top-row">
           <div class="balance-card">
             <div class="label" data-i18n="total_balance">Balance total</div>
-            <div class="amount" id="dash-balance">$128,430.50</div>
-            <div class="change" id="dash-change">▲ +5.27% ($6,431.12) <span data-i18n="today">hoy</span></div>
+            <div class="amount" id="dash-balance">—</div>
+            <div class="change" id="dash-change">—</div>
           </div>
           <div class="chart-card">
             <div class="row"><span data-i18n="performance">Rendimiento 7 días</span><b class="up">+12.4%</b></div>
@@ -466,7 +348,7 @@
               <div class="field"><input type="text" data-i18n-ph="pending" placeholder="Pendiente de configurar"></div>
               <label data-i18n="memo">Etiqueta / Memo (opcional)</label>
               <div class="field"><input type="text" data-i18n-ph="pending" placeholder="Pendiente de configurar"></div>
-              <button class="btn-main" style="margin-top:16px;" onclick="event.stopPropagation(); savePay('crypto')" data-i18n="save">Guardar</button>
+              <button class="btn-main" style="margin-top:16px;" onclick="event.stopPropagation(); savePay()" data-i18n="save">Guardar</button>
             </div>
           </div>
 
@@ -485,7 +367,7 @@
               <div class="field"><input type="text" data-i18n-ph="pending" placeholder="Pendiente de configurar"></div>
               <label data-i18n="holder">Titular</label>
               <div class="field"><input type="text" data-i18n-ph="pending" placeholder="Pendiente de configurar"></div>
-              <button class="btn-main" style="margin-top:16px;" onclick="event.stopPropagation(); savePay('bank')" data-i18n="save">Guardar</button>
+              <button class="btn-main" style="margin-top:16px;" onclick="event.stopPropagation(); savePay()" data-i18n="save">Guardar</button>
             </div>
           </div>
 
@@ -495,20 +377,63 @@
   </div>
 
 <script>
+  // ==================== DATOS ====================
+  // NOTA DEMO: credenciales visibles en el codigo fuente.
+  // Para produccion real usar Firebase Authentication o similar.
+  const USERS = [
+    { user: 'admin',  pass: 'admin2026',  name: 'Administrador',   email: 'admin@blockchain.com',
+      balance: '$128,430.50', change: '▲ +5.27% ($6,431.12)',
+      wallets: [
+        { v:'BTC',  n:'Bitcoin',  bal:'1.2450'  },
+        { v:'ETH',  n:'Ethereum', bal:'8.4200'  },
+        { v:'USDT', n:'Tether',   bal:'12,500'  },
+        { v:'BNB',  n:'BNB',      bal:'15.3000' },
+        { v:'SOL',  n:'Solana',   bal:'45.8000' },
+      ] },
+    { user: 'carlos', pass: 'carlos2026', name: 'Carlos Mendoza',  email: 'carlos.mendoza@gmail.com',
+      balance: '$24,850.00', change: '▲ +3.10% ($748.10)',
+      wallets: [
+        { v:'BTC',  n:'Bitcoin',  bal:'0.3200' },
+        { v:'ETH',  n:'Ethereum', bal:'2.1000' },
+        { v:'USDT', n:'Tether',   bal:'5,000'  },
+      ] },
+    { user: 'maria',  pass: 'maria2026',  name: 'María González',  email: 'maria.gonzalez@outlook.com',
+      balance: '$67,120.75', change: '▼ -1.40% ($952.30)',
+      wallets: [
+        { v:'BTC', n:'Bitcoin', bal:'0.6100'   },
+        { v:'SOL', n:'Solana',  bal:'120.0000' },
+      ] },
+  ];
+  const DEFAULT_WALLETS = USERS[0].wallets;
+
+  const marketData = [
+    { name: 'Bitcoin',  sym: 'BTC',  price: 95214.00, change: 4.8,  bg: '#f7931a', icon: '₿' },
+    { name: 'Ethereum', sym: 'ETH',  price: 3842.10,  change: 2.1,  bg: '#627eea', icon: 'Ξ' },
+    { name: 'Tether',   sym: 'USDT', price: 1.00,     change: 0.0,  bg: '#26a17b', icon: '₮' },
+    { name: 'BNB',      sym: 'BNB',  price: 672.40,   change: -1.3, bg: '#f0b90b', icon: 'B' },
+    { name: 'Solana',   sym: 'SOL',  price: 212.75,   change: 6.9,  bg: '#23292f', icon: '◎' },
+    { name: 'XRP',      sym: 'XRP',  price: 2.41,     change: -0.8, bg: '#25a4e8', icon: '✕' },
+    { name: 'Cardano',  sym: 'ADA',  price: 0.98,     change: 3.4,  bg: '#1d5aa8', icon: '₳' },
+    { name: 'Dogecoin', sym: 'DOGE', price: 0.32,     change: -2.6, bg: '#c2a633', icon: 'Ð' },
+  ];
+  const networkFees = { BTC: 0.0002, ETH: 0.003, USDT: 1, BNB: 0.002, SOL: 0.01 };
+
+  let currentUser = null;
+  let LANG = 'es';
+
   // ==================== IDIOMAS ====================
   const I18N = {
     es: {
       tagline: 'Tu CRM de criptomonedas',
       login_title: 'Inicia sesión en tu cuenta',
-      login_sub: 'Ingresa tu información de acceso',
-      email_ph: 'Correo electrónico',
+      login_sub: 'Ingresa tu usuario y contraseña',
+      email_ph: 'Usuario',
       pass_ph: 'Contraseña',
       remember: 'Recuérdame',
       forgot: '¿Olvidaste tu contraseña?',
       enter: 'Entrar',
       no_account: '¿No tienes cuenta?',
       signup: 'Regístrate',
-      my_account: 'Mi cuenta',
       verified: 'Usuario verificado',
       logout: 'Cerrar sesión',
       nav_dashboard: 'Dashboard', nav_market: 'Mercado', nav_withdraw: 'Retiro', nav_pay: 'Pago',
@@ -531,6 +456,7 @@
       amount: 'Cantidad a retirar',
       network_fee: 'Comisión de red (estimada)',
       request_btn: 'Solicitar retiro',
+      err_login: '⚠️ Usuario o contraseña incorrectos.',
       err_amount: '⚠️ Ingresa una cantidad válida mayor a 0.',
       err_funds: '⚠️ Fondos insuficientes: tu saldo disponible es ',
       err_bank: '⚠️ Completa los datos bancarios (banco, IBAN y titular).',
@@ -547,27 +473,18 @@
       save: 'Guardar',
       bank_label: 'Nombre del banco',
       saved_ok: '✅ Configuración guardada (demo).',
-      need_email: 'Ingresa tu correo electrónico',
-      wallets: [
-        { v:'BTC',  n:'Bitcoin',  bal:'1.2450'  },
-        { v:'ETH',  n:'Ethereum', bal:'8.4200'  },
-        { v:'USDT', n:'Tether',   bal:'12,500'  },
-        { v:'BNB',  n:'BNB',      bal:'15.3000' },
-        { v:'SOL',  n:'Solana',   bal:'45.8000' },
-      ],
     },
     en: {
       tagline: 'Your crypto CRM',
       login_title: 'Sign in to your account',
-      login_sub: 'Enter your login information',
-      email_ph: 'Email address',
+      login_sub: 'Enter your username and password',
+      email_ph: 'Username',
       pass_ph: 'Password',
       remember: 'Remember me',
       forgot: 'Forgot password?',
       enter: 'Sign In',
       no_account: "Don't have an account?",
       signup: 'Sign Up',
-      my_account: 'My account',
       verified: 'Verified user',
       logout: 'Log out',
       nav_dashboard: 'Dashboard', nav_market: 'Market', nav_withdraw: 'Withdraw', nav_pay: 'Payment',
@@ -590,6 +507,7 @@
       amount: 'Amount to withdraw',
       network_fee: 'Network fee (estimated)',
       request_btn: 'Request withdrawal',
+      err_login: '⚠️ Incorrect username or password.',
       err_amount: '⚠️ Enter a valid amount greater than 0.',
       err_funds: '⚠️ Insufficient funds: your available balance is ',
       err_bank: '⚠️ Complete the bank details (bank, IBAN and holder).',
@@ -606,39 +524,25 @@
       save: 'Save',
       bank_label: 'Bank name',
       saved_ok: '✅ Settings saved (demo).',
-      need_email: 'Enter your email address',
-      wallets: [
-        { v:'BTC',  n:'Bitcoin',  bal:'1.2450'  },
-        { v:'ETH',  n:'Ethereum', bal:'8.4200'  },
-        { v:'USDT', n:'Tether',   bal:'12,500'  },
-        { v:'BNB',  n:'BNB',      bal:'15.3000' },
-        { v:'SOL',  n:'Solana',   bal:'45.8000' },
-      ],
     },
   };
 
-  let LANG = localStorage.getItem('blockchain-lang') || 'es';
   const t = k => (I18N[LANG] && I18N[LANG][k]) || I18N.es[k] || k;
 
   function setLang(lang) {
     LANG = lang;
-    localStorage.setItem('blockchain-lang', lang);
+    try { localStorage.setItem('blockchain-lang', lang); } catch (e) {}
     document.documentElement.lang = lang;
 
-    // Botones del selector
     ['login', 'app'].forEach(sfx => {
-      document.getElementById('lang-es-' + sfx).classList.toggle('active', lang === 'es');
-      document.getElementById('lang-en-' + sfx).classList.toggle('active', lang === 'en');
+      const es = document.getElementById('lang-es-' + sfx);
+      const en = document.getElementById('lang-en-' + sfx);
+      if (es) es.classList.toggle('active', lang === 'es');
+      if (en) en.classList.toggle('active', lang === 'en');
     });
 
-    // Textos estáticos
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      el.textContent = t(el.dataset.i18n);
-    });
-    // Placeholders
-    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-      el.placeholder = t(el.dataset.i18nPh);
-    });
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
 
     renderDashboard();
     renderWallets();
@@ -646,92 +550,21 @@
     updateFee();
   }
 
+  // ==================== RENDER ====================
+  function getWallets() {
+    return currentUser ? currentUser.wallets : DEFAULT_WALLETS;
+  }
+
   function renderWallets() {
     const sel = document.getElementById('wd-wallet');
-    if (!currentUser) return;
+    if (!sel) return;
     const current = sel.value;
-    sel.innerHTML = currentUser.wallets
-      .map(w => `<option value="${w.v}" data-bal="${w.bal.replace(',','')}">${w.v} — ${w.n} · ${t('available')}: ${w.bal}</option>`)
+    sel.innerHTML = getWallets()
+      .map(w => '<option value="' + w.v + '" data-bal="' + w.bal.replace(',', '') + '">' + w.v + ' — ' + w.n + ' · ' + t('available') + ': ' + w.bal + '</option>')
       .join('');
     if (current && [...sel.options].some(o => o.value === current)) sel.value = current;
   }
 
-  // ---------- Datos del mercado ----------
-  const marketData = [
-    { name: 'Bitcoin',  sym: 'BTC',  price: 95214.00, change: 4.8,  bg: '#f7931a', icon: '₿' },
-    { name: 'Ethereum', sym: 'ETH',  price: 3842.10,  change: 2.1,  bg: '#627eea', icon: 'Ξ' },
-    { name: 'Tether',   sym: 'USDT', price: 1.00,     change: 0.0,  bg: '#26a17b', icon: '₮' },
-    { name: 'BNB',      sym: 'BNB',  price: 672.40,   change: -1.3, bg: '#f0b90b', icon: 'B' },
-    { name: 'Solana',   sym: 'SOL',  price: 212.75,   change: 6.9,  bg: '#23292f', icon: '◎' },
-    { name: 'XRP',      sym: 'XRP',  price: 2.41,     change: -0.8, bg: '#25a4e8', icon: '✕' },
-    { name: 'Cardano',  sym: 'ADA',  price: 0.98,     change: 3.4,  bg: '#1d5aa8', icon: '₳' },
-    { name: 'Dogecoin', sym: 'DOGE', price: 0.32,     change: -2.6, bg: '#c2a633', icon: 'Ð' },
-  ];
-  const networkFees = { BTC: 0.0002, ETH: 0.003, USDT: 1, BNB: 0.002, SOL: 0.01 };
-
-  function renderMarket(filter = '') {
-    const list = document.getElementById('market-list');
-    const q = filter.toLowerCase();
-    const rows = marketData
-      .filter(c => c.name.toLowerCase().includes(q) || c.sym.toLowerCase().includes(q))
-      .map(c => `
-        <div class="asset">
-          <div class="coin-icon" style="background:${c.bg};${c.bg==='#23292f'?'color:#e8e8f5;':''}">${c.icon}</div>
-          <div class="info"><b>${c.name}</b><small>${c.sym}</small></div>
-          <div class="values">
-            <b>$${c.price.toLocaleString('en-US', {minimumFractionDigits:2})}</b>
-            <small class="${c.change >= 0 ? 'up' : 'down'}">${c.change >= 0 ? '+' : ''}${c.change}%</small>
-          </div>
-        </div>`).join('');
-    list.innerHTML = rows || `<p style="color:#8b8b9e;font-size:13px;text-align:center;padding:24px;">${t('no_results')}</p>`;
-  }
-
-  function filterMarket() { renderMarket(document.getElementById('market-search').value); }
-
-  // ---------- Navegación ----------
-  function goPage(page, btn) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + page).classList.add('active');
-    document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-
-  // ==================== USUARIOS ====================
-  // NOTA DEMO: estas credenciales son visibles en el codigo fuente.
-  // Para produccion real se recomienda Firebase Authentication.
-  const USERS = [
-    {
-      user: 'admin', pass: 'admin2026', name: 'Administrador', email: 'admin@blockchain.com',
-      balance: '$128,430.50', change: '▲ +5.27% ($6,431.12)',
-      wallets: [
-        { v:'BTC',  n:'Bitcoin',  bal:'1.2450'  },
-        { v:'ETH',  n:'Ethereum', bal:'8.4200'  },
-        { v:'USDT', n:'Tether',   bal:'12,500'  },
-        { v:'BNB',  n:'BNB',      bal:'15.3000' },
-        { v:'SOL',  n:'Solana',   bal:'45.8000' },
-      ],
-    },
-    {
-      user: 'carlos', pass: 'carlos2026', name: 'Carlos Mendoza', email: 'carlos.mendoza@gmail.com',
-      balance: '$24,850.00', change: '▲ +3.10% ($748.10)',
-      wallets: [
-        { v:'BTC',  n:'Bitcoin',  bal:'0.3200' },
-        { v:'ETH',  n:'Ethereum', bal:'2.1000' },
-        { v:'USDT', n:'Tether',   bal:'5,000'  },
-      ],
-    },
-    {
-      user: 'maria', pass: 'maria2026', name: 'María González', email: 'maria.gonzalez@outlook.com',
-      balance: '$67,120.75', change: '▼ -1.40% ($952.30)',
-      wallets: [
-        { v:'BTC', n:'Bitcoin', bal:'0.6100' },
-        { v:'SOL', n:'Solana', bal:'120.0000' },
-      ],
-    },
-  ];
-  let currentUser = null;
-
-  // ---------- Dashboard personalizado ----------
   function renderDashboard() {
     if (!currentUser) return;
     document.getElementById('dash-balance').textContent = currentUser.balance;
@@ -741,23 +574,53 @@
       const price = m ? m.price : 0;
       const qty = parseFloat(w.bal.replace(',', ''));
       const val = price * qty;
-      return `<div class="asset">
-        <div class="coin-icon" style="background:${m ? m.bg : '#555'};${m && m.bg === '#23292f' ? 'color:#e8e8f5;' : ''}">${m ? m.icon : w.v[0]}</div>
-        <div class="info"><b>${w.n}</b><small>${w.v} · ${w.bal} ${w.v}</small></div>
-        <div class="values"><b>$${val.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</b>
-        <small class="${m && m.change >= 0 ? 'up' : 'down'}">${m ? (m.change >= 0 ? '+' : '') + m.change + '%' : '—'}</small></div>
-      </div>`;
+      const chg = m ? ((m.change >= 0 ? '+' : '') + m.change + '%') : '—';
+      return '<div class="asset">' +
+        '<div class="coin-icon" style="background:' + (m ? m.bg : '#555') + ';' + (m && m.bg === '#23292f' ? 'color:#e8e8f5;' : '') + '">' + (m ? m.icon : w.v.charAt(0)) + '</div>' +
+        '<div class="info"><b>' + w.n + '</b><small>' + w.v + ' · ' + w.bal + ' ' + w.v + '</small></div>' +
+        '<div class="values"><b>$' + val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</b>' +
+        '<small class="' + (m && m.change >= 0 ? 'up' : 'down') + '">' + chg + '</small></div>' +
+        '</div>';
     }).join('');
   }
 
-  // ---------- Login / Logout ----------
+  function renderMarket(filter) {
+    const list = document.getElementById('market-list');
+    if (!list) return;
+    filter = (filter || '').toLowerCase();
+    const rows = marketData
+      .filter(c => c.name.toLowerCase().includes(filter) || c.sym.toLowerCase().includes(filter))
+      .map(c =>
+        '<div class="asset">' +
+          '<div class="coin-icon" style="background:' + c.bg + ';' + (c.bg === '#23292f' ? 'color:#e8e8f5;' : '') + '">' + c.icon + '</div>' +
+          '<div class="info"><b>' + c.name + '</b><small>' + c.sym + '</small></div>' +
+          '<div class="values"><b>$' + c.price.toLocaleString('en-US', { minimumFractionDigits: 2 }) + '</b>' +
+          '<small class="' + (c.change >= 0 ? 'up' : 'down') + '">' + (c.change >= 0 ? '+' : '') + c.change + '%</small></div>' +
+        '</div>')
+      .join('');
+    list.innerHTML = rows || '<p style="color:#8b8b9e;font-size:13px;text-align:center;padding:24px;">' + t('no_results') + '</p>';
+  }
+
+  function filterMarket() {
+    renderMarket(document.getElementById('market-search').value);
+  }
+
+  // ==================== NAVEGACIÓN ====================
+  function goPage(page, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ==================== LOGIN / LOGOUT ====================
   function doLogin() {
     const user = document.getElementById('login-email').value.trim().toLowerCase();
     const pass = document.getElementById('login-pass').value;
     const msg = document.getElementById('login-msg');
     const found = USERS.find(u => u.user === user && u.pass === pass);
     if (!found) {
-      msg.textContent = LANG === 'es' ? '⚠️ Usuario o contraseña incorrectos.' : '⚠️ Incorrect username or password.';
+      msg.textContent = t('err_login');
       msg.className = 'msg err';
       return;
     }
@@ -766,47 +629,50 @@
     document.getElementById('login-email').value = '';
     document.getElementById('login-pass').value = '';
     document.getElementById('user-name').textContent = found.name;
-    renderDashboard(); renderWallets(); updateFee();
+    renderDashboard();
+    renderWallets();
+    updateFee();
     document.getElementById('login-view').style.display = 'none';
     document.getElementById('app-view').classList.add('active');
   }
+
   function doLogout() {
     currentUser = null;
+    document.getElementById('profile-menu').classList.remove('open');
     document.getElementById('app-view').classList.remove('active');
     document.getElementById('login-view').style.display = 'flex';
   }
 
-  // ---------- Perfil de usuario ----------
+  // ==================== PERFIL ====================
   function toggleProfile() {
     if (!currentUser) return;
     document.getElementById('pm-avatar').textContent = currentUser.name.charAt(0).toUpperCase();
     document.getElementById('pm-name').textContent = currentUser.name;
-    document.getElementById('pm-email').textContent = currentUser.email || '';
+    document.getElementById('pm-email').textContent = currentUser.email || '—';
     document.getElementById('profile-menu').classList.toggle('open');
   }
-  // Cerrar el menú al hacer clic fuera
   document.addEventListener('click', e => {
     if (!e.target.closest('.profile-wrap')) {
-      document.getElementById('profile-menu').classList.remove('open');
+      const pm = document.getElementById('profile-menu');
+      if (pm) pm.classList.remove('open');
     }
   });
 
-  // ---------- Retiro ----------
-  function getWdAsset() {
-    const sel = document.getElementById('wd-wallet');
-    return { sym: sel.value, bal: parseFloat(sel.selectedOptions[0].dataset.bal) };
-  }
+  // ==================== RETIRO ====================
   function updateFee() {
-    if (!document.getElementById('wd-fee')) return;
-    const { sym } = getWdAsset();
-    const fee = networkFees[sym] || 0;
-    document.getElementById('wd-fee').textContent = fee + ' ' + sym;
+    const sel = document.getElementById('wd-wallet');
+    const feeEl = document.getElementById('wd-fee');
+    if (!sel || !feeEl || !sel.selectedOptions.length) return;
+    const sym = sel.value;
+    feeEl.textContent = (networkFees[sym] || 0) + ' ' + sym;
   }
 
   function doWithdraw() {
     const msg = document.getElementById('wd-msg');
     msg.className = 'msg';
-    const { sym, bal } = getWdAsset();
+    const sel = document.getElementById('wd-wallet');
+    const sym = sel.value;
+    const bal = parseFloat(sel.selectedOptions[0].dataset.bal);
     const amount = parseFloat(document.getElementById('wd-amount').value);
 
     if (!amount || amount <= 0) {
@@ -824,20 +690,22 @@
     msg.textContent = t('ok_withdraw');
     msg.className = 'msg ok';
     document.getElementById('wd-amount').value = '';
-    ['wd-bank-name', 'wd-bank-iban', 'wd-bank-holder'].forEach(id => document.getElementById(id).value = '');
+    ['wd-bank-name', 'wd-bank-iban', 'wd-bank-holder'].forEach(id => { document.getElementById(id).value = ''; });
     updateFee();
   }
 
-  // ---------- Pago ----------
+  // ==================== PAGO ====================
   function togglePayForm(id) {
     const form = document.getElementById(id);
+    if (!form) return;
     const wasOpen = form.classList.contains('open');
     document.querySelectorAll('.pay-form').forEach(f => f.classList.remove('open'));
     if (!wasOpen) form.classList.add('open');
   }
   function savePay() { alert(t('saved_ok')); }
 
-  // ---------- Init ----------
+  // ==================== INICIO ====================
+  try { LANG = localStorage.getItem('blockchain-lang') || 'es'; } catch (e) {}
   setLang(LANG);
 </script>
 </body>
