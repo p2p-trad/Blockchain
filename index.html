@@ -3,321 +3,281 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blockchain — Tu CRM de criptomonedas</title>
+<title>Blockchain — CRM de criptomonedas</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-  body {
-    background: radial-gradient(circle at 50% 0%, #151530, #05050f 70%);
-    min-height: 100vh;
+  :root {
+    --bg: #0a0a10;
+    --card: #111118;
+    --card-2: #14141d;
+    --border: #1e1e2a;
+    --text: #ececf1;
+    --muted: #8b8b9e;
+    --faint: #5c5c70;
+    --accent: #7c6cff;
+    --accent-soft: rgba(124,108,255,.12);
+    --green: #3ecf8e;
+    --red: #ff5c7a;
+    --radius: 16px;
   }
-  .blob { position: fixed; pointer-events: none; z-index: 0; }
-  .blob1 { top: -40px; left: -60px; width: 220px; height: 220px;
-    background: conic-gradient(from 200deg, #1e3cff, #7b2fff, #00d4ff, #1e3cff);
-    border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; filter: blur(20px); opacity:.55; }
-  .blob2 { top: -30px; right: -70px; width: 240px; height: 240px;
-    background: conic-gradient(from 40deg, #ff2fb3, #1e3cff, #00d4ff, #ff2fb3);
-    border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%; filter: blur(22px); opacity:.5; }
-  .blob3 { bottom: -60px; left: -50px; width: 260px; height: 260px;
-    background: conic-gradient(from 300deg, #00d4ff, #7b2fff, #1e3cff, #00d4ff);
-    border-radius: 60% 40% 55% 45% / 40% 60% 40% 60%; filter: blur(24px); opacity:.35; }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+  body { background: var(--bg); color: var(--text); min-height: 100vh; }
 
   /* ============ LOGIN ============ */
   .login-wrap {
     min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    padding: 20px; position: relative; z-index: 1;
+    padding: 24px; position: relative; z-index: 1;
   }
   .frame {
-    position: relative;
-    width: 100%; max-width: 375px;
-    background: #0a0a18;
-    border-radius: 40px;
-    overflow: hidden;
-    box-shadow: 0 30px 80px rgba(0,0,0,.6), inset 0 0 0 2px #1e1e3a;
+    width: 100%; max-width: 400px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px 36px 40px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.45);
   }
-  .screen {
-    display: flex; flex-direction: column; align-items: center;
-    padding: 90px 30px 30px;
-  }
-  .brand-logo img { width: 64px; height: 64px; display: block; margin: 0 auto 12px; }
-  .brand-name {
-    font-size: 26px; font-weight: 800; letter-spacing: 2px;
-    color: #fff; text-align: center; margin-bottom: 34px;
-  }
-  h1 { color: #fff; font-size: 22px; font-weight: 800; text-align: center; letter-spacing: 1px; margin-bottom: 8px; }
-  .subtitle { color: #8b8ba7; font-size: 13px; margin-bottom: 26px; text-align: center; }
+  .brand-logo img { width: 56px; height: 56px; display: block; margin: 0 auto 16px; }
+  .brand-name { font-size: 24px; font-weight: 800; letter-spacing: .5px; text-align: center; }
+  .tagline { color: var(--muted); font-size: 13px; text-align: center; margin: 6px 0 36px; }
+
+  h1 { font-size: 20px; font-weight: 800; letter-spacing: -.3px; margin-bottom: 6px; }
+  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
+
   .field {
-    width: 100%; background: #12122a;
-    border: 1px solid #232348; border-radius: 10px;
+    width: 100%; background: var(--card-2);
+    border: 1px solid var(--border); border-radius: 12px;
     display: flex; align-items: center; gap: 10px;
-    padding: 14px; margin-bottom: 14px;
+    padding: 14px; margin-bottom: 12px; transition: border-color .2s;
   }
+  .field:focus-within { border-color: var(--accent); }
   .field input, .field select {
     flex: 1; background: none; border: none; outline: none;
-    color: #cfd0e8; font-size: 14px; width: 100%;
+    color: var(--text); font-size: 14px; width: 100%;
   }
-  .field select option { background: #12122a; }
-  .field input::placeholder { color: #5a5a7d; }
-  .field:focus-within { border-color: #3d5bff; box-shadow: 0 0 0 3px rgba(61,91,255,.15); }
-  .options {
-    width: 100%; display: flex; justify-content: space-between;
-    align-items: center; margin: 4px 0 22px; font-size: 12px;
-  }
-  .remember { display: flex; align-items: center; gap: 7px; color: #9a9ab8; cursor: pointer; }
-  .remember input { accent-color: #3d5bff; width: 14px; height: 14px; }
-  .options a { color: #6f7bff; text-decoration: none; }
-  .btn-login {
-    width: 100%; padding: 15px; border: none; border-radius: 10px;
-    background: linear-gradient(90deg, #2b4bff, #6a3dff);
-    color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 2px;
-    cursor: pointer; transition: .25s;
-    box-shadow: 0 8px 24px rgba(61,91,255,.35);
-  }
-  .btn-login:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(106,61,255,.5); }
-  .footer { margin-top: 24px; color: #8b8ba7; font-size: 13px; text-align: center; }
-  .footer a { color: #6f7bff; text-decoration: none; font-weight: 600; }
+  .field select option { background: var(--card-2); }
+  .field input::placeholder { color: var(--faint); }
 
-  /* ============ APP (CRM) ============ */
+  .options {
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 4px 0 24px; font-size: 12px;
+  }
+  .remember { display: flex; align-items: center; gap: 7px; color: var(--muted); cursor: pointer; }
+  .remember input { accent-color: var(--accent); width: 14px; height: 14px; }
+  .options a { color: var(--muted); text-decoration: none; }
+  .options a:hover { color: var(--accent); }
+
+  .btn-login, .btn-main {
+    width: 100%; padding: 15px; border: none; border-radius: 12px;
+    background: var(--accent); color: #fff;
+    font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+    cursor: pointer; transition: filter .2s, transform .15s;
+  }
+  .btn-login:hover, .btn-main:hover { filter: brightness(1.1); }
+  .btn-login:active, .btn-main:active { transform: scale(.98); }
+
+  .footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: center; }
+  .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+  /* ============ APP ============ */
   .app { display: none; min-height: 100vh; position: relative; z-index: 1; }
   .app.active { display: flex; }
 
   .nav {
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
-    background: #0d0d1e; border-top: 1px solid #1e1e3a;
-    display: flex; justify-content: space-around; padding: 10px 0;
+    background: rgba(10,10,16,.92); backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-around; padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
   }
   .nav button {
     background: none; border: none; cursor: pointer;
-    color: #8b8ba7; font-size: 11px; font-weight: 600;
+    color: var(--faint); font-size: 10px; font-weight: 600;
     display: flex; flex-direction: column; align-items: center; gap: 4px;
-    padding: 4px 10px; border-radius: 10px; transition: .2s;
+    padding: 4px 12px; border-radius: 10px; transition: color .2s;
   }
-  .nav button .ico { font-size: 20px; }
-  .nav button.active { color: #5a7bff; }
-  .nav button:hover { color: #cfd0e8; }
+  .nav button .ico { font-size: 19px; }
+  .nav button.active { color: var(--accent); }
+
+  .nav-logo { display: none; }
 
   .main {
-    flex: 1; width: 100%; max-width: 1100px; margin: 0 auto;
+    flex: 1; width: 100%; max-width: 1080px; margin: 0 auto;
     padding: 22px 20px 96px;
   }
   .crm-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 22px;
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px;
   }
   .crm-header .id { display: flex; align-items: center; gap: 10px; }
-  .crm-header .id img { width: 34px; height: 34px; }
-  .crm-header .id span { color: #fff; font-weight: 700; font-size: 16px; }
+  .crm-header .id img { width: 30px; height: 30px; }
+  .crm-header .id span { font-weight: 700; font-size: 15px; }
   .btn-logout {
-    background: #15152e; border: 1px solid #26264a; color: #9a9ab8;
-    font-size: 12px; padding: 8px 14px; border-radius: 8px; cursor: pointer; transition: .2s;
+    background: none; border: 1px solid var(--border); color: var(--muted);
+    font-size: 12px; padding: 8px 14px; border-radius: 10px; cursor: pointer; transition: .2s;
   }
-  .btn-logout:hover { border-color: #ff4d6d; color: #ff4d6d; }
+  .btn-logout:hover { border-color: var(--red); color: var(--red); }
 
-  .page { display: none; animation: fade .3s; }
+  .page { display: none; animation: fade .25s ease; }
   .page.active { display: block; }
-  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-  .balance-card {
-    background: linear-gradient(135deg, #1a2bff, #7b2fff);
-    border-radius: 16px; padding: 20px; margin-bottom: 18px;
-    box-shadow: 0 10px 30px rgba(61,91,255,.3);
+  .section-title {
+    color: var(--faint); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase; margin: 26px 0 12px;
   }
-  .balance-card .label { color: #c7ccff; font-size: 12px; margin-bottom: 6px; }
-  .balance-card .amount { color: #fff; font-size: 30px; font-weight: 800; }
-  .balance-card .change { color: #4ade80; font-size: 13px; font-weight: 600; margin-top: 4px; }
+  .section-title:first-child { margin-top: 0; }
+
+  /* Balance */
+  .balance-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px;
+  }
+  .balance-card .label { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+  .balance-card .amount { font-size: 32px; font-weight: 800; letter-spacing: -.5px; }
+  .balance-card .change { color: var(--green); font-size: 13px; font-weight: 600; margin-top: 6px; }
 
   .chart-card {
-    background: #12122a; border: 1px solid #232348; border-radius: 16px;
-    padding: 16px; margin-bottom: 18px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px; margin-top: 14px;
   }
-  .chart-card .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-  .chart-card .row span { color: #8b8ba7; font-size: 12px; }
-  .chart-card .row b { color: #fff; font-size: 13px; }
+  .chart-card .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .chart-card .row span { color: var(--muted); font-size: 12px; }
+  .chart-card .row b { font-size: 13px; }
 
-  .section-title { color: #8b8ba7; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
-
-  .assets { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  /* Listas */
+  .assets { display: grid; grid-template-columns: 1fr; gap: 8px; }
   .asset {
-    background: #12122a; border: 1px solid #232348; border-radius: 14px;
-    display: flex; align-items: center; gap: 12px; padding: 13px 14px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    display: flex; align-items: center; gap: 12px; padding: 14px;
+    transition: border-color .2s;
   }
+  .asset:hover { border-color: #2a2a3d; }
   .coin-icon {
-    width: 38px; height: 38px; border-radius: 50%;
+    width: 36px; height: 36px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 15px; color: #fff; flex-shrink: 0;
+    font-weight: 700; font-size: 14px; color: #fff; flex-shrink: 0;
   }
   .asset .info { flex: 1; }
-  .asset .info b { color: #fff; font-size: 14px; display: block; }
-  .asset .info small { color: #8b8ba7; font-size: 11px; }
+  .asset .info b { font-size: 14px; display: block; font-weight: 700; }
+  .asset .info small { color: var(--muted); font-size: 11px; }
   .asset .values { text-align: right; }
-  .asset .values b { color: #fff; font-size: 14px; display: block; }
+  .asset .values b { font-size: 14px; display: block; font-variant-numeric: tabular-nums; }
   .asset .values small { font-size: 11px; font-weight: 600; }
-  .up { color: #4ade80 !important; } .down { color: #ff4d6d !important; }
-
-  .btn-main {
-    width: 100%; padding: 15px; margin-top: 14px; border: none; border-radius: 12px;
-    background: linear-gradient(90deg, #2b4bff, #6a3dff);
-    color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 2px;
-    cursor: pointer; transition: .25s;
-    box-shadow: 0 8px 24px rgba(61,91,255,.35);
-  }
-  .btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(106,61,255,.5); }
+  .up { color: var(--green) !important; } .down { color: var(--red) !important; }
 
   .search-box {
-    width: 100%; background: #12122a; border: 1px solid #232348;
-    border-radius: 10px; padding: 13px 14px; margin-bottom: 16px;
+    width: 100%; background: var(--card-2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 13px 14px; margin-bottom: 20px;
     display: flex; align-items: center; gap: 10px;
   }
   .search-box input {
     flex: 1; background: none; border: none; outline: none;
-    color: #cfd0e8; font-size: 14px;
+    color: var(--text); font-size: 14px;
   }
-  .search-box input::placeholder { color: #5a5a7d; }
+  .search-box input::placeholder { color: var(--faint); }
 
   /* Formularios */
   .form-card {
-    background: #12122a; border: 1px solid #232348; border-radius: 16px;
-    padding: 20px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px;
   }
-  .form-card label { display: block; color: #9a9ab8; font-size: 12px; margin: 14px 0 6px; }
+  .form-card label { display: block; color: var(--muted); font-size: 12px; font-weight: 600; margin: 16px 0 7px; }
   .form-card label:first-child { margin-top: 0; }
   .form-card .field { margin-bottom: 0; }
-  .hint { color: #5a5a7d; font-size: 11px; margin-top: 6px; }
-  .msg {
-    display: none; margin-top: 16px; padding: 13px 14px; border-radius: 10px;
-    font-size: 13px; font-weight: 600;
-  }
-  .msg.ok { display: block; background: rgba(74,222,128,.12); color: #4ade80; border: 1px solid rgba(74,222,128,.35); }
-  .msg.err { display: block; background: rgba(255,77,109,.12); color: #ff4d6d; border: 1px solid rgba(255,77,109,.35); }
+  .hint { color: var(--faint); font-size: 11px; margin-top: 8px; line-height: 1.5; }
 
-  /* Selector de método (pestañas) */
-  .tabs { display: flex; gap: 10px; margin-bottom: 18px; }
-  .tab {
-    flex: 1; padding: 12px; border-radius: 12px; cursor: pointer; text-align: center;
-    background: #12122a; border: 1px solid #232348; color: #9a9ab8;
-    font-size: 13px; font-weight: 600; transition: .2s;
+  .msg {
+    display: none; margin-top: 18px; padding: 14px; border-radius: 12px; font-size: 13px; font-weight: 600;
   }
-  .tab.active {
-    background: linear-gradient(90deg, #2b4bff, #6a3dff); color: #fff;
-    border-color: transparent; box-shadow: 0 6px 18px rgba(61,91,255,.3);
-  }
+  .msg.ok { display: block; background: rgba(62,207,142,.1); color: var(--green); border: 1px solid rgba(62,207,142,.3); }
+  .msg.err { display: block; background: rgba(255,92,122,.1); color: var(--red); border: 1px solid rgba(255,92,122,.3); }
 
   .fee-box {
-    display: flex; justify-content: space-between; background: #0d0d1e;
-    border: 1px dashed #2c2c55; border-radius: 10px; padding: 12px 14px;
-    margin-top: 16px; font-size: 12px; color: #8b8ba7;
+    display: flex; justify-content: space-between; background: var(--card-2);
+    border: 1px dashed var(--border); border-radius: 12px;
+    padding: 13px 14px; margin-top: 18px; font-size: 12px; color: var(--muted);
   }
-  .fee-box b { color: #cfd0e8; }
+  .fee-box b { color: var(--text); font-variant-numeric: tabular-nums; }
 
-  /* Tarjetas de opciones (sección Pago) */
-  .pay-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  /* Pago */
+  .pay-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
   .pay-card {
-    background: #12122a; border: 1px solid #232348; border-radius: 16px;
-    padding: 18px; cursor: pointer; transition: .2s;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px; cursor: pointer; transition: border-color .2s;
   }
-  .pay-card:hover { border-color: #3d5bff; }
-  .pay-card .head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
-  .pay-card .head .coin-icon { width: 42px; height: 42px; font-size: 17px; }
-  .pay-card .head b { color: #fff; font-size: 15px; display: block; }
-  .pay-card .head small { color: #8b8ba7; font-size: 11px; }
-  .pay-card p { color: #8b8ba7; font-size: 12px; }
-  .pay-form { display: none; margin-top: 14px; border-top: 1px solid #232348; padding-top: 6px; }
+  .pay-card:hover { border-color: var(--accent); }
+  .pay-card .head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .pay-card .head b { font-size: 15px; display: block; }
+  .pay-card .head small { color: var(--muted); font-size: 11px; }
+  .pay-card > p { color: var(--muted); font-size: 12px; }
+  .pay-form { display: none; margin-top: 16px; border-top: 1px solid var(--border); }
   .pay-form.open { display: block; }
-
-  /* Modal */
-  .overlay {
-    display: none; position: fixed; inset: 0; z-index: 100;
-    background: rgba(3,3,10,.75); backdrop-filter: blur(4px);
-    align-items: center; justify-content: center; padding: 20px;
-  }
-  .overlay.show { display: flex; }
-  .modal {
-    background: #0d0d1e; border: 1px solid #232348; border-radius: 18px;
-    width: 100%; max-width: 380px; padding: 26px 24px;
-    box-shadow: 0 30px 80px rgba(0,0,0,.7);
-    animation: pop .25s;
-  }
-  @keyframes pop { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .modal .m-title { color: #fff; font-size: 17px; font-weight: 800; text-align: center; margin-bottom: 16px; }
-  .modal .m-row { display: flex; justify-content: space-between; font-size: 13px; color: #9a9ab8; padding: 7px 0; border-bottom: 1px solid #191932; }
-  .modal .m-row b { color: #e8e8f5; }
-  .modal .m-total { display: flex; justify-content: space-between; font-size: 15px; font-weight: 800; color: #fff; padding-top: 12px; }
-  .modal .actions { display: flex; gap: 10px; margin-top: 20px; }
-  .modal .actions button {
-    flex: 1; padding: 13px; border-radius: 10px; font-size: 13px; font-weight: 700;
-    cursor: pointer; border: none; letter-spacing: 1px; transition: .2s;
-  }
-  .btn-confirm { background: linear-gradient(90deg, #2b4bff, #6a3dff); color: #fff; }
-  .btn-cancel { background: #15152e; color: #9a9ab8; border: 1px solid #26264a !important; }
 
   /* ===== ESCRITORIO ===== */
   @media (min-width: 900px) {
-    .frame { max-width: 1024px; }
-    .screen { padding: 60px 70px; flex-direction: row; align-items: center; gap: 70px; }
-    .login-left {
-      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      border-right: 1px solid #1c1c38; padding-right: 70px; align-self: stretch;
+    .frame { max-width: 960px; padding: 0; overflow: hidden; }
+    .screen-login {
+      display: grid; grid-template-columns: 1fr 1fr;
     }
-    .login-right { flex: 1; max-width: 400px; }
-    .login-right h1 { text-align: left; font-size: 26px; }
-    .login-right .subtitle { text-align: left; }
-    .login-right .footer { text-align: left; }
-    .brand-logo img { width: 110px; height: 110px; margin-bottom: 20px; }
-    .brand-name { font-size: 34px; margin-bottom: 0; }
-    .tagline { color: #8b8ba7; font-size: 14px; margin-top: 12px; }
+    .login-left {
+      background: var(--card-2); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 60px 40px; min-height: 560px;
+    }
+    .login-left .brand-logo img { width: 96px; height: 96px; }
+    .login-left .brand-name { font-size: 30px; }
+    .login-right { padding: 60px 56px; display: flex; flex-direction: column; justify-content: center; }
 
     .nav {
-      top: 0; bottom: 0; left: 0; right: auto; width: 210px;
-      flex-direction: column; justify-content: flex-start; gap: 6px;
-      border-top: none; border-right: 1px solid #1e1e3a; padding: 28px 14px;
+      top: 0; bottom: 0; left: 0; right: auto; width: 220px;
+      flex-direction: column; justify-content: flex-start; gap: 4px;
+      border-top: none; border-right: 1px solid var(--border); padding: 28px 16px;
     }
-    .nav .nav-logo { margin-bottom: 26px; text-align: center; }
-    .nav .nav-logo img { width: 44px; height: 44px; }
-    .nav .nav-logo div { color: #fff; font-weight: 700; font-size: 14px; margin-top: 6px; }
+    .nav-logo { display: block; text-align: center; margin-bottom: 30px; }
+    .nav-logo img { width: 40px; height: 40px; }
+    .nav-logo div { font-weight: 700; font-size: 14px; margin-top: 8px; }
     .nav button {
       flex-direction: row; justify-content: flex-start; gap: 12px;
-      font-size: 14px; padding: 12px 16px; width: 100%;
+      font-size: 14px; padding: 12px 16px; width: 100%; border-radius: 12px;
     }
-    .nav button.active { background: #15152e; }
-    .main { margin-left: 210px; padding: 36px 40px 40px; }
-    .assets { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .balance-card .amount { font-size: 36px; }
-    .top-row { display: flex; gap: 20px; }
-    .top-row .balance-card { flex: 1; margin-bottom: 0; }
-    .top-row .chart-card { flex: 1.4; margin-bottom: 0; }
-    .form-card { max-width: 560px; }
+    .nav button.active { background: var(--accent-soft); }
+
+    .main { margin-left: 220px; padding: 40px 48px; }
+    .assets { grid-template-columns: 1fr 1fr; gap: 10px; }
     .pay-grid { grid-template-columns: 1fr 1fr; }
+
+    .top-row { display: flex; gap: 14px; margin-bottom: 0; }
+    .top-row .balance-card { flex: 1; }
+    .top-row .chart-card { flex: 1.5; margin-top: 0; }
+    .form-card { max-width: 560px; }
   }
 </style>
 <base target="_blank">
 </head>
 <body>
-  <div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div>
 
   <!-- ================= LOGIN ================= -->
   <div class="login-wrap" id="login-view">
     <div class="frame">
-      <div class="screen">
+      <div class="screen-login">
         <div class="login-left">
           <div class="brand-logo"><img src="data:image/png;base64,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" alt="Logo Blockchain"></div>
           <div class="brand-name">Blockchain</div>
           <p class="tagline">Tu CRM de criptomonedas</p>
         </div>
         <div class="login-right">
-          <h1>INICIA SESIÓN EN<br>TU CUENTA</h1>
+          <h1>Inicia sesión en tu cuenta</h1>
           <p class="subtitle">Ingresa tu información de acceso</p>
           <div class="field">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a7aa0" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c5c70" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
             <input type="email" id="login-email" placeholder="Correo electrónico">
           </div>
           <div class="field">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a7aa0" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c5c70" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
             <input type="password" id="login-pass" placeholder="Contraseña">
           </div>
           <div class="options">
             <label class="remember"><input type="checkbox"> Recuérdame</label>
             <a href="#">¿Olvidaste tu contraseña?</a>
           </div>
-          <button class="btn-login" onclick="doLogin()">ENTRAR</button>
+          <button class="btn-login" onclick="doLogin()">Entrar</button>
           <p class="footer">¿No tienes cuenta? <a href="#">Regístrate</a></p>
         </div>
       </div>
@@ -360,13 +320,13 @@
             <svg width="100%" height="70" viewBox="0 0 300 70" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#3d5bff" stop-opacity=".4"/>
-                  <stop offset="100%" stop-color="#3d5bff" stop-opacity="0"/>
+                  <stop offset="0%" stop-color="#7c6cff" stop-opacity=".25"/>
+                  <stop offset="100%" stop-color="#7c6cff" stop-opacity="0"/>
                 </linearGradient>
               </defs>
               <path d="M0,55 L30,48 L60,52 L90,38 L120,42 L150,28 L180,33 L210,20 L240,25 L270,12 L300,8 L300,70 L0,70 Z" fill="url(#fill)"/>
-              <path d="M0,55 L30,48 L60,52 L90,38 L120,42 L150,28 L180,33 L210,20 L240,25 L270,12 L300,8" fill="none" stroke="#5a7bff" stroke-width="2.5" stroke-linecap="round"/>
-              <circle cx="300" cy="8" r="4" fill="#5a7bff"/>
+              <path d="M0,55 L30,48 L60,52 L90,38 L120,42 L150,28 L180,33 L210,20 L240,25 L270,12 L300,8" fill="none" stroke="#7c6cff" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="300" cy="8" r="3.5" fill="#7c6cff"/>
             </svg>
           </div>
         </div>
@@ -379,13 +339,13 @@
           <div class="asset"><div class="coin-icon" style="background:#f0b90b;">B</div><div class="info"><b>BNB</b><small>BNB · 15.3000 BNB</small></div><div class="values"><b>$672.40</b><small class="down">-1.3%</small></div></div>
           <div class="asset"><div class="coin-icon" style="background:#23292f;color:#e8e8f5;">◎</div><div class="info"><b>Solana</b><small>SOL · 45.8000 SOL</small></div><div class="values"><b>$212.75</b><small class="up">+6.9%</small></div></div>
         </div>
-        <button class="btn-main" onclick="goPage('market', document.querySelectorAll('.nav button')[1])">IR AL MERCADO</button>
+        <button class="btn-main" onclick="goPage('market', document.querySelectorAll('.nav button')[1])" style="margin-top:22px;">Ir al mercado</button>
       </section>
 
       <!-- ===== MERCADO ===== -->
       <section class="page" id="page-market">
         <div class="search-box">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a7aa0" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c5c70" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           <input type="text" id="market-search" placeholder="Buscar criptomoneda..." oninput="filterMarket()">
         </div>
         <div class="section-title">Precios en vivo</div>
@@ -395,7 +355,6 @@
       <!-- ===== RETIRO ===== -->
       <section class="page" id="page-withdraw">
         <div class="section-title">Solicitar retiro</div>
-
         <div class="form-card">
           <label>Billetera de origen (con saldo)</label>
           <div class="field">
@@ -413,7 +372,7 @@
           <div class="field"><input type="text" id="wd-bank-iban" placeholder="Ej: ES91 2100 0418 4502 0005 1332"></div>
           <label>Titular de la cuenta</label>
           <div class="field"><input type="text" id="wd-bank-holder" placeholder="Nombre completo del titular"></div>
-          <label style="margin-top:16px;">Cantidad a retirar</label>
+          <label style="margin-top:18px;">Cantidad a retirar</label>
           <div class="field"><input type="number" id="wd-amount" placeholder="0.0000" min="0" step="any" oninput="updateFee()"></div>
 
           <div class="fee-box">
@@ -422,7 +381,7 @@
           </div>
 
           <div class="msg" id="wd-msg"></div>
-          <button class="btn-main" onclick="doWithdraw()">SOLICITAR RETIRO</button>
+          <button class="btn-main" style="margin-top:18px;" onclick="doWithdraw()">Solicitar retiro</button>
         </div>
       </section>
 
@@ -431,10 +390,9 @@
         <div class="section-title">Métodos de pago</div>
         <div class="pay-grid">
 
-          <!-- Pago con cripto -->
           <div class="pay-card" onclick="togglePayForm('pay-crypto-form')">
             <div class="head">
-              <div class="coin-icon" style="background:#1a2bff;">₿</div>
+              <div class="coin-icon" style="background:#7c6cff;">₿</div>
               <div><b>Pago con Cripto</b><small>USDT · BTC · ETH</small></div>
             </div>
             <p>Recibe pagos en criptomoneda a tu billetera. Toca para configurar.</p>
@@ -445,11 +403,10 @@
               <div class="field"><input type="text" placeholder="Pendiente de configurar"></div>
               <label>Etiqueta / Memo (opcional)</label>
               <div class="field"><input type="text" placeholder="Pendiente de configurar"></div>
-              <button class="btn-main" onclick="event.stopPropagation(); savePay('Pago con Cripto')">GUARDAR</button>
+              <button class="btn-main" style="margin-top:16px;" onclick="event.stopPropagation(); savePay('Pago con Cripto')">Guardar</button>
             </div>
           </div>
 
-          <!-- Pago con transferencia bancaria -->
           <div class="pay-card" onclick="togglePayForm('pay-bank-form')">
             <div class="head">
               <div class="coin-icon" style="background:#26a17b;">🏦</div>
@@ -465,7 +422,7 @@
               <div class="field"><input type="text" placeholder="Pendiente de configurar"></div>
               <label>Titular</label>
               <div class="field"><input type="text" placeholder="Pendiente de configurar"></div>
-              <button class="btn-main" onclick="event.stopPropagation(); savePay('Transferencia bancaria')">GUARDAR</button>
+              <button class="btn-main" style="margin-top:16px;" onclick="event.stopPropagation(); savePay('Transferencia bancaria')">Guardar</button>
             </div>
           </div>
 
@@ -486,7 +443,6 @@
     { name: 'Cardano',  sym: 'ADA',  price: 0.98,     change: 3.4,  bg: '#1d5aa8', icon: '₳' },
     { name: 'Dogecoin', sym: 'DOGE', price: 0.32,     change: -2.6, bg: '#c2a633', icon: 'Ð' },
   ];
-  // Comisiones de red estimadas por activo (en unidades del activo)
   const networkFees = { BTC: 0.0002, ETH: 0.003, USDT: 1, BNB: 0.002, SOL: 0.01 };
 
   function renderMarket(filter = '') {
@@ -503,7 +459,7 @@
             <small class="${c.change >= 0 ? 'up' : 'down'}">${c.change >= 0 ? '+' : ''}${c.change}%</small>
           </div>
         </div>`).join('');
-    list.innerHTML = rows || '<p style="color:#8b8ba7;font-size:13px;text-align:center;padding:20px;">Sin resultados</p>';
+    list.innerHTML = rows || '<p style="color:#8b8b9e;font-size:13px;text-align:center;padding:24px;">Sin resultados</p>';
   }
   renderMarket();
 
@@ -535,12 +491,12 @@
     const sel = document.getElementById('wd-wallet');
     return { sym: sel.value, bal: parseFloat(sel.selectedOptions[0].dataset.bal) };
   }
-
   function updateFee() {
     const { sym } = getWdAsset();
     const fee = networkFees[sym] || 0;
     document.getElementById('wd-fee').textContent = fee + ' ' + sym;
   }
+  updateFee();
 
   function doWithdraw() {
     const msg = document.getElementById('wd-msg');
