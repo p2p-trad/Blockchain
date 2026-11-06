@@ -412,29 +412,12 @@
   // ==================== DATOS ====================
   // NOTA DEMO: credenciales visibles en el codigo fuente.
   // Para produccion real usar Firebase Authentication o similar.
+  const ETH_PRICE = 3842.10; // Precio ficticio para esta demostración.
+  const ETH_PRICE = 3842.10; // Precio ficticio para esta demostración.
   const USERS = [
-    { user: 'admin',  pass: 'admin2026',  name: 'Administrador',   email: 'admin@blockchain.com',
-      balance: '$128,430.50', change: '▲ +5.27% ($6,431.12)',
-      wallets: [
-        { v:'BTC',  n:'Bitcoin',  bal:'1.2450'  },
-        { v:'ETH',  n:'Ethereum', bal:'8.4200'  },
-        { v:'USDT', n:'Tether',   bal:'12,500'  },
-        { v:'BNB',  n:'BNB',      bal:'15.3000' },
-        { v:'SOL',  n:'Solana',   bal:'45.8000' },
-      ] },
-    { user: 'carlos', pass: 'carlos2026', name: 'Carlos Mendoza',  email: 'carlos.mendoza@gmail.com',
-      balance: '$24,850.00', change: '▲ +3.10% ($748.10)',
-      wallets: [
-        { v:'BTC',  n:'Bitcoin',  bal:'0.3200' },
-        { v:'ETH',  n:'Ethereum', bal:'2.1000' },
-        { v:'USDT', n:'Tether',   bal:'5,000'  },
-      ] },
-    { user: 'maria',  pass: 'maria2026',  name: 'María González',  email: 'maria.gonzalez@outlook.com',
-      balance: '$67,120.75', change: '▼ -1.40% ($952.30)',
-      wallets: [
-        { v:'BTC', n:'Bitcoin', bal:'0.6100'   },
-        { v:'SOL', n:'Solana',  bal:'120.0000' },
-      ] },
+    { user: 'admin', pass: 'admin2026', name: 'Administrador', email: 'admin@blockchain.com', change: '▲ +5.27%', wallets: [{ v:'ETH', n:'Ethereum', bal:(128430.50 / ETH_PRICE).toFixed(8) }] },
+    { user: 'carlos', pass: 'carlos2026', name: 'Carlos Mendoza', email: 'carlos.mendoza@gmail.com', change: '▲ +3.10%', wallets: [{ v:'ETH', n:'Ethereum', bal:(24850.00 / ETH_PRICE).toFixed(8) }] },
+    { user: 'maria', pass: 'maria2026', name: 'María González', email: 'maria.gonzalez@outlook.com', change: '▼ -1.40%', wallets: [{ v:'ETH', n:'Ethereum', bal:(67120.75 / ETH_PRICE).toFixed(8) }] },
   ];
   const DEFAULT_WALLETS = USERS[0].wallets;
 
@@ -448,7 +431,7 @@
     { name: 'Cardano',  sym: 'ADA',  price: 0.98,     change: 3.4,  bg: '#1d5aa8', icon: '₳' },
     { name: 'Dogecoin', sym: 'DOGE', price: 0.32,     change: -2.6, bg: '#c2a633', icon: 'Ð' },
   ];
-  const networkFees = { BTC: 0.0002, ETH: 0.003, USDT: 1, BNB: 0.002, SOL: 0.01 };
+  const networkFees = { ETH: 0.003 };
 
   let currentUser = null;
   let activityByUser = {};
@@ -457,7 +440,7 @@
   // ==================== IDIOMAS ====================
   const I18N = {
     es: {
-      tagline: 'Tu panel educativo de criptomonedas',
+      tagline: 'Tu panel educativo de Ethereum',
       demo_badge: 'MODO DEMOSTRACIÓN', demo_notice: 'Datos y operaciones ficticios: no se mueve dinero real.',
       activity_title: 'Actividad reciente (simulada)', activity_empty: 'Todavía no hay operaciones de demostración.', activity_withdraw: 'Solicitud de retiro simulada',
       login_title: 'Inicia sesión en tu cuenta',
@@ -472,7 +455,7 @@
       verified: 'Usuario verificado',
       logout: 'Cerrar sesión',
       nav_dashboard: 'Dashboard', nav_market: 'Mercado', nav_withdraw: 'Retiro', nav_pay: 'Pago',
-      total_balance: 'Balance total',
+      total_balance: 'Saldo total en ETH',
       today: 'hoy',
       performance: 'Rendimiento 7 días',
       my_cryptos: 'Mis criptomonedas',
@@ -495,7 +478,7 @@
       err_amount: '⚠️ Ingresa una cantidad válida mayor a 0.',
       err_funds: '⚠️ Fondos insuficientes: tu saldo disponible es ',
       err_bank: '⚠️ Completa los datos bancarios (banco, IBAN y titular).',
-      ok_withdraw: '✅ Solicitud de retiro simulada registrada. No se ha enviado dinero real.',
+      ok_withdraw: '✅ Retiro simulado registrado. El saldo ficticio se actualizó; no se envió dinero real.',
       pay_methods: 'Métodos de pago',
       pay_crypto: 'Pago con Cripto',
       pay_crypto_desc: 'Recibe pagos en criptomoneda a tu billetera.',
@@ -517,7 +500,7 @@
       wallet_steps: '<div class="step"><div class="num">1</div><div class="txt"><b>Descarga Trust Wallet</b><p>Instala la aplicación desde la tienda oficial de tu móvil (App Store o Google Play) o desde el sitio oficial trustwallet.com. Verifica que el desarrollador sea "Trust Wallet".</p></div></div><div class="step"><div class="num">2</div><div class="txt"><b>Crea una billetera nueva</b><p>Abre la app y selecciona "Crear una billetera nueva". Acepta las condiciones de uso y continúa con el proceso.</p></div></div><div class="step"><div class="num">3</div><div class="txt"><b>Guarda tu frase de recuperación</b><p>Escríbela en papel y guárdala en un lugar seguro, fuera del alcance de terceros. Nunca la compartas con nadie: quien la posea controla tus fondos.</p></div></div><div class="step"><div class="num">4</div><div class="txt"><b>Añade tus criptomonedas</b><p>Toca el icono de ajustes (esquina superior derecha) y activa las monedas que utilices (BTC, ETH, USDT, etc.) para verlas en la pantalla principal.</p></div></div><div class="step"><div class="num">5</div><div class="txt"><b>Visualiza tu saldo</b><p>En la pantalla principal verás el balance total en USD y el detalle de cada moneda. También puedes usar "Recibir" para añadir fondos y ver el saldo actualizado.</p></div></div>',
     },
     en: {
-      tagline: 'Your educational crypto dashboard',
+      tagline: 'Your educational Ethereum dashboard',
       demo_badge: 'DEMO MODE', demo_notice: 'Fictional data and operations: no real money is moved.',
       activity_title: 'Recent activity (simulated)', activity_empty: 'There are no demo transactions yet.', activity_withdraw: 'Simulated withdrawal request',
       login_title: 'Sign in to your account',
@@ -532,7 +515,7 @@
       verified: 'Verified user',
       logout: 'Log out',
       nav_dashboard: 'Dashboard', nav_market: 'Market', nav_withdraw: 'Withdraw', nav_pay: 'Payment',
-      total_balance: 'Total balance',
+      total_balance: 'Total balance in ETH',
       today: 'today',
       performance: '7-day performance',
       my_cryptos: 'My cryptocurrencies',
@@ -555,7 +538,7 @@
       err_amount: '⚠️ Enter a valid amount greater than 0.',
       err_funds: '⚠️ Insufficient funds: your available balance is ',
       err_bank: '⚠️ Complete the bank details (bank, IBAN and holder).',
-      ok_withdraw: '✅ Simulated withdrawal request recorded. No real money was sent.',
+      ok_withdraw: '✅ Simulated withdrawal recorded. The demo balance was updated; no real money was sent.',
       pay_methods: 'Payment methods',
       pay_crypto: 'Crypto Payment',
       pay_crypto_desc: 'Receive crypto payments to your wallet.',
@@ -610,29 +593,22 @@
   function renderWallets() {
     const sel = document.getElementById('wd-wallet');
     if (!sel) return;
-    const current = sel.value;
-    sel.innerHTML = getWallets()
-      .map(w => '<option value="' + w.v + '" data-bal="' + w.bal.replace(',', '') + '">' + w.v + ' — ' + w.n + ' · ' + t('available') + ': ' + w.bal + '</option>')
-      .join('');
-    if (current && [...sel.options].some(o => o.value === current)) sel.value = current;
+    const wallet = getWallets().find(w => w.v === 'ETH');
+    if (!wallet) { sel.innerHTML = ''; return; }
+    sel.innerHTML = '<option value="ETH" data-bal="' + parseFloat(wallet.bal) + '">ETH — Ethereum · ' + t('available') + ': ' + parseFloat(wallet.bal).toFixed(8) + ' ETH</option>';
+    sel.value = 'ETH';
   }
 
   function renderDashboard() {
     if (!currentUser) return;
-    document.getElementById('dash-balance').textContent = currentUser.balance;
-    document.getElementById('dash-change').innerHTML = currentUser.change + ' <span>' + t('today') + '</span>';
+    const ethWallet = currentUser.wallets.find(w => w.v === 'ETH');
+    const ethBalance = ethWallet ? parseFloat(ethWallet.bal) : 0;
+    const usdValue = ethBalance * ETH_PRICE;
+    document.getElementById('dash-balance').textContent = ethBalance.toFixed(8) + ' ETH';
+    document.getElementById('dash-change').innerHTML = '≈ $' + usdValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' USD · ' + currentUser.change + ' <span>' + t('today') + '</span>';
     document.getElementById('dash-assets').innerHTML = currentUser.wallets.map(w => {
-      const m = marketData.find(c => c.sym === w.v);
-      const price = m ? m.price : 0;
-      const qty = parseFloat(w.bal.replace(',', ''));
-      const val = price * qty;
-      const chg = m ? ((m.change >= 0 ? '+' : '') + m.change + '%') : '—';
-      return '<div class="asset">' +
-        '<div class="coin-icon" style="background:' + (m ? m.bg : '#555') + ';' + (m && m.bg === '#23292f' ? 'color:#e8e8f5;' : '') + '">' + (m ? m.icon : w.v.charAt(0)) + '</div>' +
-        '<div class="info"><b>' + w.n + '</b><small>' + w.v + ' · ' + w.bal + ' ' + w.v + '</small></div>' +
-        '<div class="values"><b>$' + val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</b>' +
-        '<small class="' + (m && m.change >= 0 ? 'up' : 'down') + '">' + chg + '</small></div>' +
-        '</div>';
+      const qty = parseFloat(w.bal), val = qty * ETH_PRICE;
+      return '<div class="asset"><div class="coin-icon" style="background:#627eea;">Ξ</div><div class="info"><b>Ethereum</b><small>ETH · ' + qty.toFixed(8) + ' ETH</small></div><div class="values"><b>' + qty.toFixed(8) + ' ETH</b><small>≈ $' + val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' USD</small></div></div>';
     }).join('');
     renderActivity();
   }
@@ -720,41 +696,36 @@
 
   // ==================== RETIRO ====================
   function updateFee() {
-    const sel = document.getElementById('wd-wallet');
     const feeEl = document.getElementById('wd-fee');
-    if (!sel || !feeEl || !sel.selectedOptions.length) return;
-    const sym = sel.value;
-    feeEl.textContent = (networkFees[sym] || 0) + ' ' + sym;
+    if (feeEl) feeEl.textContent = networkFees.ETH.toFixed(8) + ' ETH';
   }
 
   function doWithdraw() {
     const msg = document.getElementById('wd-msg');
     msg.className = 'msg';
-    const sel = document.getElementById('wd-wallet');
-    const sym = sel.value;
-    const bal = parseFloat(sel.selectedOptions[0].dataset.bal);
+    const wallet = currentUser && currentUser.wallets.find(w => w.v === 'ETH');
+    const bal = wallet ? parseFloat(wallet.bal) : 0;
     const amount = parseFloat(document.getElementById('wd-amount').value);
-
-    if (!amount || amount <= 0) {
+    const fee = networkFees.ETH;
+    if (!Number.isFinite(amount) || amount <= 0) {
       msg.textContent = t('err_amount'); msg.classList.add('err'); return;
     }
-    if (amount > bal) {
-      msg.textContent = t('err_funds') + bal + ' ' + sym + '.'; msg.classList.add('err'); return;
+    if (amount + fee > bal) {
+      msg.textContent = t('err_funds') + bal.toFixed(8) + ' ETH (incluye comisión de ' + fee.toFixed(8) + ' ETH).'; msg.classList.add('err'); return;
     }
     if (document.getElementById('wd-bank-name').value.trim().length < 3 ||
         document.getElementById('wd-bank-iban').value.trim().length < 8 ||
         document.getElementById('wd-bank-holder').value.trim().length < 3) {
       msg.textContent = t('err_bank'); msg.classList.add('err'); return;
     }
-
-    const wallet = currentUser.wallets.find(w => w.v === sym);
-    const quantity = parseFloat(wallet.bal.replace(/,/g, '')) - amount;
-    wallet.bal = quantity.toLocaleString('en-US', { maximumFractionDigits: 8, useGrouping: false });
-    const total = currentUser.wallets.reduce((sum, w) => {
-      const coin = marketData.find(c => c.sym === w.v);
-      return sum + (coin ? coin.price * parseFloat(w.bal.replace(/,/g, '')) : 0);
-    }, 0);
-    currentUser.balance = '
+    wallet.bal = (bal - amount - fee).toFixed(8);
+    if (!activityByUser[currentUser.user]) activityByUser[currentUser.user] = [];
+    activityByUser[currentUser.user].push({ title: t('activity_withdraw'), amount: '-' + amount.toFixed(8) + ' ETH', date: new Date().toLocaleString() });
+    activityByUser[currentUser.user].push({ title: t('activity_fee'), amount: '-' + fee.toFixed(8) + ' ETH', date: new Date().toLocaleString() });
+    renderDashboard();
+    renderWallets();
+    msg.textContent = t('ok_withdraw');
+    msg.className = 'msg ok';
     document.getElementById('wd-amount').value = '';
     ['wd-bank-name', 'wd-bank-iban', 'wd-bank-holder'].forEach(id => { document.getElementById(id).value = ''; });
     updateFee();
