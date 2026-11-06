@@ -115,7 +115,7 @@
 
   .pay-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
   .pay-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; cursor: pointer; transition: border-color .2s; }
-  .pay-card:hover { border-color: var(--accent); }
+  .pay-card.static { cursor: default; }
   .pay-card .head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
   .pay-card .head b { font-size: 15px; display: block; }
   .pay-card .head small { color: var(--muted); font-size: 11px; }
@@ -346,13 +346,13 @@
         <div class="section-title" data-i18n="pay_methods">Métodos de pago</div>
         <div class="pay-grid">
 
-          <div class="pay-card" onclick="togglePayForm('pay-crypto-form')">
+          <div class="pay-card static">
             <div class="head">
               <div class="coin-icon" style="background:#7c6cff;">₿</div>
               <div><b data-i18n="pay_crypto">Pago con Cripto</b><small>USDT · BTC · ETH</small></div>
             </div>
-            <p data-i18n="pay_crypto_desc">Recibe pagos en criptomoneda a tu billetera. Toca para configurar.</p>
-            <div class="pay-form" id="pay-crypto-form">
+            <p data-i18n="pay_crypto_desc">Recibe pagos en criptomoneda a tu billetera.</p>
+            <div class="pay-form open" id="pay-crypto-form">
               <label data-i18n="network">Red</label>
               <div class="field"><select><option>TRC20 (Tron)</option><option>ERC20 (Ethereum)</option><option>BEP20 (BNB)</option></select></div>
               <label data-i18n="wallet_addr">Dirección de billetera</label>
@@ -363,22 +363,22 @@
             </div>
           </div>
 
-          <div class="pay-card" onclick="togglePayForm('pay-bank-form')">
+          <div class="pay-card static">
             <div class="head">
               <div class="coin-icon" style="background:#26a17b;">🏦</div>
               <div><b data-i18n="pay_bank">Transferencia bancaria</b><small>SEPA · SWIFT</small></div>
             </div>
-            <p data-i18n="pay_bank_desc">Recibe pagos por transferencia directa a tu cuenta. Toca para configurar.</p>
-            <div class="pay-form" id="pay-bank-form">
+            <p data-i18n="pay_bank_desc">Recibe pagos por transferencia directa a tu cuenta.</p>
+            <div class="pay-form open" id="pay-bank-form">
               <label data-i18n="bank_label">Nombre del banco</label>
               <div class="field"><input type="text" value="MONEY" data-i18n-ph="pending" placeholder="Pendiente de configurar"></div>
               <label data-i18n="iban">IBAN / Número de cuenta</label>
               <div class="field"><input type="text" value="ES********10" data-i18n-ph="pending" placeholder="Pendiente de configurar"></div>
               <label>SWIFT / BIC</label>
-              <div class="field"><input type="text" value="MNMNXXX" data-i18n-ph="pending" placeholder="Pendiente de configurar"></div>
+              <div class="field"><input type="text" data-i18n-ph="pending" placeholder="Pendiente de configurar"></div>
               <label data-i18n="reference">Referencia</label>
               <div class="field"><input type="text" value="IVO-N" data-i18n-ph="pending" placeholder="Pendiente de configurar"></div>
-              <label data-i18n="holder">Comprobante</label>
+              <label data-i18n="holder">Titular</label>
               <div class="field"><input type="text" data-i18n-ph="pending" placeholder="Pendiente de configurar"></div>
               <button class="btn-main" style="margin-top:16px;" onclick="event.stopPropagation(); savePay()" data-i18n="save">Guardar</button>
             </div>
@@ -486,9 +486,9 @@
       ok_withdraw: '✅ Retiro exitoso. Tu solicitud ha sido registrada y será procesada hacia la cuenta indicada.',
       pay_methods: 'Métodos de pago',
       pay_crypto: 'Pago con Cripto',
-      pay_crypto_desc: 'Recibe pagos en criptomoneda a tu billetera. Toca para configurar.',
+      pay_crypto_desc: 'Recibe pagos en criptomoneda a tu billetera.',
       pay_bank: 'Transferencia bancaria',
-      pay_bank_desc: 'Recibe pagos por transferencia directa a tu cuenta. Toca para configurar.',
+      pay_bank_desc: 'Recibe pagos por transferencia directa a tu cuenta.',
       network: 'Red',
       wallet_addr: 'Dirección de billetera',
       memo: 'Etiqueta / Memo (opcional)',
@@ -544,9 +544,9 @@
       ok_withdraw: '✅ Withdrawal successful. Your request has been registered and will be processed to the indicated account.',
       pay_methods: 'Payment methods',
       pay_crypto: 'Crypto Payment',
-      pay_crypto_desc: 'Receive crypto payments to your wallet. Tap to configure.',
+      pay_crypto_desc: 'Receive crypto payments to your wallet.',
       pay_bank: 'Bank transfer',
-      pay_bank_desc: 'Receive payments by direct transfer to your account. Tap to configure.',
+      pay_bank_desc: 'Receive payments by direct transfer to your account.',
       network: 'Network',
       wallet_addr: 'Wallet address',
       memo: 'Tag / Memo (optional)',
